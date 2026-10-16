@@ -1,0 +1,681 @@
+<!DOCTYPE html><html lang="uk"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-+2/JboinjfokZC3FZiYGApk6vgHU0HPHOIPSy9sYJrE=' 'sha256-iQzpzp8n3/ZMueWoIczCWN09VxUJvwneNxij33tHM8o='; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.open-meteo.com https://generativelanguage.googleapis.com; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'"><meta name="referrer" content="no-referrer"><script>try{var t=localStorage.getItem("vektor:theme");if(t=="light"||t=="dark")document.documentElement.dataset.theme=t}catch(e){}</script><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Вектор</title><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#2442d6"><link rel="apple-touch-icon" href="icon-192.png">
+<link referrerpolicy="no-referrer" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;700&family=Unbounded:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef1f7;--sf:#fff;--tx:#121a33;--mu:#5d6788;--ac:#2442d6;--at:#fff;--hl:#ffd84a;--ok:#0f8a4f;--bd:#d3d9ea;--gr:rgba(36,66,214,.07);color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1222;--sf:#151d33;--tx:#e7ecff;--mu:#8f9bc2;--ac:#8aa8ff;--at:#0c1222;--ok:#4ade80;--bd:#26314f;--gr:rgba(138,168,255,.07);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0c1222;--sf:#151d33;--tx:#e7ecff;--mu:#8f9bc2;--ac:#8aa8ff;--at:#0c1222;--ok:#4ade80;--bd:#26314f;--gr:rgba(138,168,255,.07);color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg) linear-gradient(var(--gr) 1px,transparent 1px) 0 0/22px 22px;background-image:linear-gradient(var(--gr) 1px,transparent 1px),linear-gradient(90deg,var(--gr) 1px,transparent 1px);background-size:22px 22px;color:var(--tx);font:400 15px/1.45 Onest,system-ui,sans-serif;padding-bottom:88px}
+.w{max-width:560px;margin:auto;padding:14px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+h1{font:700 20px Unbounded,sans-serif;margin:0}h1 span{background:var(--hl);color:#121a33;padding:0 6px;border-radius:4px}
+.dt{color:var(--mu);font-size:13px;text-transform:capitalize}
+h2{font:700 15px Unbounded,sans-serif;margin:16px 0 8px}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;cursor:pointer}
+button.p{background:var(--ac);color:var(--at);border-color:var(--ac);font-weight:700}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+input,select,textarea{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;min-width:0}
+.c{background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:12px;margin-bottom:10px}
+.r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.g{flex:1}
+.mu{color:var(--mu);font-size:13px}
+.tl{position:relative;padding-left:62px}.tl:before{content:"";position:absolute;left:25px;top:6px;bottom:6px;width:3px;background:var(--hl);border-radius:2px}
+.row{position:relative;margin-bottom:10px}
+.tm{position:absolute;left:-62px;top:10px;width:52px;font:700 12px Unbounded,sans-serif;text-align:center;background:var(--hl);color:#121a33;border-radius:6px;padding:3px 0}
+.tm small{display:block;font:400 10px Onest,sans-serif}
+.dn .tt{text-decoration:line-through;color:var(--mu)}
+.ck{width:28px;height:28px;border-radius:50%;padding:0;flex:none}.dn>.r>.ck{background:var(--ok);color:#fff;border-color:var(--ok)}
+.sub{margin:6px 0 0 36px;font-size:14px}.sub label{display:flex;gap:8px;align-items:center;padding:2px 0}
+.chip{border:1px solid var(--bd);border-radius:20px;padding:1px 8px;font-size:12px;color:var(--mu);background:var(--bg)}
+.brk .c{background:transparent;border-style:dashed;margin:0}
+.mc{cursor:pointer}.mc .rv{display:none;color:var(--mu);font-size:14px}.mc.open .rv{display:block}
+.bar{height:8px;background:var(--bd);border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.big{background:var(--ac);color:var(--at);border-radius:20px;padding:28px 20px;min-height:200px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;text-align:center}
+.big b{font:700 26px Unbounded,sans-serif}.big .bk{display:none;margin-top:12px}.big.open .bk{display:block}
+.days{display:flex;gap:6px;margin-bottom:10px}.days button{flex:1;padding:8px 0}.days .on{background:var(--ac);color:var(--at);border-color:var(--ac);font-weight:700}
+.q{font:500 22px/1.35 Unbounded,sans-serif;background:var(--hl);color:#121a33;padding:22px;border-radius:18px}
+.st{padding:5px 10px;border-radius:8px;margin:3px 0}.st.on{background:var(--hl);color:#121a33;font-weight:700}.st.past{color:var(--mu);text-decoration:line-through}
+.in{width:64px}details summary{cursor:pointer;font-weight:700}details pre{white-space:pre-wrap;font:inherit;margin:8px 0 0}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--sf);border-top:1px solid var(--bd);padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;border:0;background:none;font-size:10px;color:var(--mu);padding:4px 0}nav button b{display:block;font-size:20px;font-weight:400}nav .on{color:var(--ac);font-weight:700}
+.dv{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background:currentColor;-webkit-mask:url(data:image/png;base64,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) center/contain no-repeat;mask:url(data:image/png;base64,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) center/contain no-repeat}
+#toast{position:fixed;left:50%;bottom:96px;transform:translateX(-50%);background:var(--tx);color:var(--bg);padding:8px 14px;border-radius:20px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}#toast.s{opacity:1}
+.en{display:flex;gap:2px;align-items:flex-end;height:64px}.en button{flex:1;min-width:0;padding:0;border:0;border-radius:3px 3px 0 0;background:var(--ac)}
+.hr{display:flex;gap:2px;font-size:9px;color:var(--mu)}.hr span{flex:1;text-align:center}
+.nd{margin:4px 0 0 14px}.nd>.r{gap:6px;flex-wrap:nowrap}.nd button{padding:2px 9px}.cnt{font-size:12px;color:var(--mu)}.fin .tx{text-decoration:line-through;color:var(--mu)}
+.kc{font:700 13px Unbounded,sans-serif;color:var(--ac);font-variant-numeric:tabular-nums;margin-top:2px}.wg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}.wg .c{margin:0}.wg b{font-size:18px}.wd{display:flex;gap:8px;align-items:center;padding:7px 0;border-top:1px solid var(--bd)}.wd:first-child{border-top:0}
+</style></head><body>
+<div class="w"><header><div><h1>Век<span>тор</span></h1><div class="dt" id="dt"></div><div class="kc" id="ck"></div></div><button data-a="theme" aria-label="Тема">◐</button></header><main id="v"></main></div>
+<nav id="nv"></nav><div id="toast"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"'`]/g,c=>'&#'+c.charCodeAt(0)+';'),K='structura:v1',today=()=>new Date().toISOString().slice(0,10);
+const CARDS=[['put off','phrasal verb','відкладати','Don\'t put off your revision.'],['figure out','phrasal verb','розібратися, збагнути','I finally figured out the proof.'],['come up with','phrasal verb','придумати','She came up with a better plan.'],['run out of','phrasal verb','вичерпати запас','We ran out of time.'],['look into','phrasal verb','розглянути, дослідити','I\'ll look into this problem.'],['carry on','phrasal verb','продовжувати','Carry on with your task.'],['a piece of cake','ідіома','легка справа','The test was a piece of cake.'],['hit the books','ідіома','сісти за підручники','I must hit the books tonight.'],['burn the midnight oil','ідіома','працювати до пізна','He burned the midnight oil before the exam.'],['break the ice','ідіома','розрядити атмосферу','A joke helps break the ice.'],['no cap','сленг','без брехні, серйозно','That workout was hard, no cap.'],['low-key','сленг','трохи, потайки','I\'m low-key proud of this.']];
+const QS=[['Contra spem spero! — сподіваюсь без надії.','Леся Українка'],['Світ ловив мене, та не спіймав.','Григорій Сковорода'],['Борітеся — поборете!','Тарас Шевченко'],['Сьогодні ти робиш те, за що завтра скажеш собі дякую.'],['Маленький крок щодня переможе великий ривок раз на місяць.'],['План — це спокій. Виконання — це сила. Починай з першого пункту.'],['Не чекай настрою — створи рух, і настрій прийде.'],['Складне — це багато простих кроків у правильному порядку.'],['Кожен підхід і кожна задача — цеглина в кращій версії тебе.'],['Терпіння і труд усе перетруть.','Народна мудрість'],['Без труда нема плода.','Народна мудрість'],['Початок — половина діла.','Народна мудрість'],['Вовків боятися — в ліс не ходити.','Народна мудрість'],['Повторення — мати навчання.','Народна мудрість'],['Землю красить сонце, а людину — праця.','Народна мудрість'],['Не боги горщики ліплять.','Народна мудрість'],['Очі бояться, а руки роблять.','Народна мудрість'],['Що посієш, те й пожнеш.','Народна мудрість'],['Тихіше їдеш — далі будеш.','Народна мудрість'],['І чужому научайтесь, й свого не цурайтесь.','Тарас Шевченко'],['В своїй хаті своя правда, і сила, і воля.','Тарас Шевченко'],['Народ мій є! Народ мій завжди буде!','Василь Стус'],['Лиш боротись — значить жить.','Іван Франко'],['Страшні слова, коли вони мовчать.','Ліна Костенко'],['Дисципліна — це пам’ять про те, чого ти справді хочеш.'],['Робиш — вчишся. Вчишся — ростеш. Ростеш — робиш більше.'],['Не порівнюй свій початок із чужою серединою.'],['Відпочинок — частина плану, а не нагорода за нього.'],['Краще зробити на 70 % сьогодні, ніж ідеально — колись.'],['Одна глава, одна задача, одне тренування. Далі — наступне.'],['Втома минає, а зроблене лишається.'],['Великі речі складаються з нудних повторень.'],['Прогрес не завжди помітний, але він завжди накопичується.'],['Почни з п’яти хвилин — і побачиш, що вже йдеш.'],['Помилка — це дані, а не вирок.'],['Сильним тебе робить не настрій, а звичка.'],['Мужність — це не відсутність страху, а крок попри нього.']];
+const DAYS=['Пн','Вт','Ср','Чт','Пт','Сб','Нд'],TY={study:'📚',sport:'💪',hobby:'🛠',eng:'🗣'},STG=['Кікап до стіни','Обличчям до стіни 30 с','Спиною до стіни 30 с','Відриви від стіни 5 с','Вільна стійка 10 с','Вільна стійка 30 с'];
+const ex=(...n)=>n.map(x=>({n:x,log:[]}));
+function seed(){return{start:'09:00',tasks:[{id:1,t:'Лінійна алгебра: 10 задач',m:90,p:3,e:3,ty:'study',done:0,subs:[{t:'Системи рівнянь',d:0},{t:'Власні числа',d:0}]},{id:2,t:'Економічна теорія: конспект глави',m:60,p:2,e:2,ty:'study',done:0,subs:[]},{id:3,t:'Повторити білети до сесії',m:45,p:3,e:2,ty:'study',done:0,subs:[]},{id:4,t:'Тренування за спліт',m:60,p:2,e:2,ty:'sport',done:0,subs:[]}],split:[{n:'Груди + трицепс',ex:ex('Жим лежачи','Жим гантелей на похилій','Віджимання на брусах')},{n:'Спина + біцепс',ex:ex('Підтягування','Тяга штанги в нахилі','Підйом на біцепс')},{n:'Ноги',ex:ex('Присідання','Румунська тяга','Випади')},{n:'Плечі + прес',ex:ex('Жим стоячи','Махи гантелями','Підйом ніг у висі')},{n:'Калістеніка',ex:ex('Підтягування (об\'єм)','Віджимання в стійці біля стіни','Відтискання на кільцях')}],pull:[],hold:[],stage:0,known:{},skip:0,notes:[{id:1,t:'Матриці в Excel',c:'Excel/Word',b:'Множення: MMULT(A;B), обернена: MINVERSE, визначник: MDETERM, транспонування: TRANSPOSE.\nУ старих версіях завершуй формулу Ctrl+Shift+Enter. Назви функцій в укр. Excel відрізняються.'},{id:2,t:'Word: нумерація з 3-ї сторінки',c:'Excel/Word',b:'Вставлення → Номер сторінки → Формат. Макет → Розриви → Наступна сторінка. Вимкни «Як у попередньому розділі» й задай початок з 1.'},{id:3,t:'Дрон: чекліст перед польотом',c:'Дрони',b:'Заряд АКБ і пульта · пропелери без тріщин · калібровка компаса · GPS ≥ 8 супутників · точка повернення · відкритий майданчик.'}],qo:0,nf:{on:0,time:'08:00',last:''}}}
+const ts=(v,d='',n=300)=>typeof v=='string'?v.slice(0,n):d,tn=(v,d,a,b)=>{v=typeof v=='number'?v:parseFloat(v);return isFinite(v)?Math.min(b,Math.max(a,v)):d},ta=v=>Array.isArray(v)?v:[],ob=v=>v&&typeof v=='object'?v:{},hop=(O,k)=>Object.prototype.hasOwnProperty.call(O,k),dre=/^\d{4}-\d\d-\d\d$/;
+function clean(o){const D=seed();o=ob(o);if(Array.isArray(o)||!Object.keys(o).length)o=D;
+const kn=Object.create(null),ok0=ob(o.known);Object.keys(ok0).forEach(k=>{if(ok0[k])kn[k]=1});
+const T=(n,l)=>{n=ob(n);return{t:ts(n.t,'',200),d:n.d?1:0,kids:l>8?[]:ta(n.kids).slice(0,100).map(x=>T(x,l+1))}};
+const sp5=ta(o.split).slice(0,7).map(d=>({n:ts(d&&d.n,'День',100),ex:ta(d&&d.ex).slice(0,60).map(e=>({n:ts(e&&e.n,'',100),log:ta(e&&e.log).slice(-500).map(l=>({d:ts(l&&l.d,'',10),w:tn(l&&l.w,0,0,2e3),r:tn(l&&l.r,1,0,1e3)}))}))}));while(sp5.length<5)sp5.push(D.split[sp5.length]);
+const R2={start:/^\d\d:\d\d$/.test(o.start)?o.start:'09:00',
+tasks:ta(o.tasks).slice(0,300).map(k=>({id:tn(k&&k.id,0,0,9e15),t:ts(k&&k.t,'',200),m:tn(k&&k.m,30,5,1440),p:tn(k&&k.p,2,1,3),e:tn(k&&k.e,2,1,3),ty:k&&typeof k.ty=='string'&&hop(TY,k.ty)?k.ty:'study',done:k&&k.done?1:0,subs:ta(k&&k.subs).slice(0,50).map(x=>({t:ts(x&&x.t,'',200),d:x&&x.d?1:0}))})),
+split:sp5,pull:ta(o.pull).slice(-500).map(x=>({d:ts(x&&x.d,'',10),v:tn(x&&x.v,0,0,1e4)})),hold:ta(o.hold).slice(-500).map(x=>tn(x,0,0,1e5)),stage:tn(o.stage,0,0,50)|0,known:kn,skip:tn(o.skip,0,0,1e6)|0,
+notes:ta(o.notes).slice(0,1000).map(n=>({id:tn(n&&n.id,0,0,9e15),t:ts(n&&n.t,'',200),c:ts(n&&n.c,'Без категорії',60),b:ts(n&&n.b,'',2e4)})),qo:tn(o.qo,0,0,1e6)|0,nf:D.nf};
+if(o.en)R2.en=Array.from({length:24},(_,i)=>tn(o.en[i],0,0,3)|0);
+if(o.ppl)R2.ppl=ta(o.ppl).slice(0,200).map(x=>({n:ts(x&&x.n,'',100),dt:dre.test(x&&x.dt)?x.dt:'',ideas:ta(x&&x.ideas).slice(0,100).map(z=>({t:ts(z&&z.t,'',200),d:z&&z.d?1:0}))}));
+if(o.proj)R2.proj=ta(o.proj).slice(0,100).map(n=>T(n,0));
+if(o.cu)R2.cu=ta(o.cu).slice(0,3000).map(c=>[0,1,2,3].map(i=>ts(c&&c[i],'',200))).filter(c=>c[0]&&c[2]);
+if(o.cat!==undefined)R2.cat=ts(o.cat,'',60);
+if(o.skills)R2.skills=ta(o.skills).slice(0,50).map(k=>{const r={n:ts(k&&k.n,'',100),u:ts(k&&k.u,'с',10),i:tn(k&&k.i,0,0,50)|0,st:ta(k&&k.st).slice(0,50).map(x=>ts(x,'',100)),log:ta(k&&k.log).slice(-500).map(x=>tn(x,0,-1e6,1e6))};r.i=Math.min(r.i,Math.max(0,r.st.length-1));return r});
+R2.city=ts(o.city,'',60);if(o.wx)R2.wx=o.wx;return R2}
+let S;try{S=JSON.parse(localStorage.getItem(K))}catch(e){}S=clean(S);while(S.split.length<7)S.split.push({n:'Тренування',ex:[]});
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}};
+let tab='plan',wd=(new Date().getDay()+6)%7;
+const toast=m=>{const t=$('#toast');t.textContent=T9(m);t.className='s';setTimeout(()=>t.className='',1800)};
+const f=x=>String(Math.floor(x/60)%24).padStart(2,'0')+':'+String(x%60).padStart(2,'0');
+const sp=a=>{a=a.slice(-12);if(a.length<2)return'';const mx=Math.max(...a),mn=Math.min(...a),r=mx-mn||1;return`<svg viewBox="0 0 120 32" width="120" height="32"><polyline fill="none" stroke="var(--ac)" stroke-width="2" points="${a.map((v,i)=>(i*120/(a.length-1)).toFixed(1)+','+(28-(v-mn)/r*24).toFixed(1)).join(' ')}"/></svg>`};
+const allC=()=>CARDS.concat(S.cu||[]),pool=()=>{const a=allC().filter(c=>!S.cat||c[1]==S.cat),d=a.filter(c=>!S.known[c[0]]);return d.length?d:a.length?a:CARDS};
+const mini=i=>{const p=pool(),c=p[(i+S.skip)%p.length];return`<div class="mc" data-a="mf"><b>${esc(c[0])}</b> <span class="chip">${esc(c[1])}</span><div class="rv">${esc(c[2])} — <i>${esc(c[3])}</i></div></div>`};
+const quote=()=>QS[(Math.floor(Date.now()/864e5)+S.qo)%QS.length];
+const V={
+plan(){let[h,m]=S.start.split(':').map(Number),cur=h*60+m,w=0,o='',tot=0,dn=0;
+S.tasks.forEach((k,i)=>{tot+=k.m;if(k.done)dn+=k.m;
+o+=`<div class="row"><div class="tm">${f(cur)}<small>${k.m} хв</small></div><div class="c ${k.done?'dn':''}"><div class="r"><button class="ck" data-a="tg" data-i="${i}" aria-label="Готово">${k.done?'✓':''}</button><div class="g tt">${TY[k.ty]} ${esc(k.t)}</div><button data-a="del" data-i="${i}" aria-label="Видалити">×</button></div><div class="r" style="margin:6px 0 0 36px"><span class="chip">пріоритет ${'●'.repeat(k.p)}</span><span class="chip">зусилля ${'●'.repeat(k.e)}</span></div><div class="sub">${k.subs.map((s,j)=>`<label><input type="checkbox" data-a="st" data-i="${i}" data-j="${j}" ${s.d?'checked':''}>${esc(s.t)}</label>`).join('')}<div class="r"><input class="g si" id="si${i}" placeholder="+ підзавдання"><button data-a="sub" data-i="${i}">Додати</button></div></div></div></div>`;
+cur+=k.m;w+=k.m;if(i<S.tasks.length-1){const L=w>=90,b=L?15:5;if(L)w=0;o+=`<div class="row brk"><div class="tm" style="background:var(--bd);color:var(--mu)">${f(cur)}<small>${b} хв</small></div><div class="c"><div class="mu">☕ Перерва — картка для мозку</div>${mini(i)}</div></div>`;cur+=b}});
+return`<div class="c"><div class="r"><input class="g" id="nt" placeholder="Нове завдання"><input class="in" id="nm" type="number" min="5" step="5" placeholder="хв"></div><div class="r" style="margin-top:8px"><select id="np"><option value="3">Пріоритет: високий</option><option value="2" selected>середній</option><option value="1">низький</option></select><select id="ne"><option value="3">Зусилля: великі</option><option value="2" selected>середні</option><option value="1">малі</option></select><select id="ny"><option value="study">📚 Навчання</option><option value="sport">💪 Спорт</option><option value="hobby">🛠 Хобі</option><option value="eng">🗣 Англійська</option></select><button class="p" data-a="add">Додати</button></div></div>
+<div class="r" style="margin-bottom:10px"><label class="mu">Старт <input type="time" id="stt" value="${S.start}"></label><button class="p g" data-a="opt">⚡ Оптимізувати маршрут</button></div>
+<div class="mu" style="margin-bottom:8px">Зроблено ${dn} з ${tot} хв · фініш о ${f(cur)}</div><div class="bar" style="margin-bottom:14px"><i style="width:${tot?dn/tot*100:0}%"></i></div><div class="tl">${o||'<div class="mu">Додай перше завдання — маршрут збудується сам.</div>'}</div>`},
+gym(){const d=S.split[wd],pr=S.pull.map(x=>x.v),hl=S.hold;
+return`<div class="days">${DAYS.map((x,i)=>`<button data-a="wd" data-i="${i}" class="${i==wd?'on':''}">${x}</button>`).join('')}</div><input id="dn" value="${esc(d.n)}" aria-label="Назва дня (можна змінити)" style="width:100%;font:700 15px Unbounded,sans-serif;margin-bottom:10px">`+d.ex.map((e,i)=>{const l=e.log,b=l.reduce((a,x)=>(!a||x.w>a.w||(x.w==a.w&&x.r>a.r))?x:a,null),td=l.filter(x=>x.d==today());
+return`<div class="c"><div class="r"><b class="g">${esc(e.n)}</b>${b?`<span class="chip">рекорд ${b.w} кг × ${b.r}${b.w>l[0].w?' ▲'+(b.w-l[0].w):''}</span>`:''}<button data-a="dx" data-i="${i}" aria-label="Видалити вправу">×</button></div><div class="r" style="margin-top:6px">${td.map(x=>`<button class="chip" data-a="dset" data-i="${i}" data-j="${l.indexOf(x)}" title="Видалити підхід">${x.w}×${x.r} ×</button>`).join('')||'<span class="mu">Сьогодні підходів ще нема</span>'}</div><div class="r" style="margin-top:8px"><input class="in" id="w${i}" type="number" placeholder="кг"><input class="in" id="r${i}" type="number" placeholder="повт."><button class="p" data-a="set" data-i="${i}">+ підхід</button></div></div>`}).join('')+
+`<div class="c r"><input class="g" id="nx" placeholder="Нова вправа в цей день"><button data-a="addex">Додати</button></div>
+<h2>Підтягування</h2><div class="c"><div class="r"><b class="g">Рекорд: ${pr.length?Math.max(...pr):'—'}</b>${sp(pr)}</div><div class="r" style="margin-top:8px"><input class="in" id="pu" type="number" placeholder="повт."><button class="p" data-a="pull">Записати</button></div></div>
+<h2>Навички</h2>${skills()}`},
+learn(){const p=pool(),c=p[S.skip%p.length],k=Object.keys(S.known).length;
+return`<div class="mu" style="margin-bottom:6px">Вивчено ${k} з ${CARDS.length}</div><div class="bar" style="margin-bottom:14px"><i style="width:${k/CARDS.length*100}%"></i></div><div class="big" data-a="mf"><span class="chip" style="align-self:center;background:var(--at);color:var(--ac)">${c[1]}</span><b style="margin-top:12px">${esc(c[0])}</b><div class="bk">${esc(c[2])}<br><i>${esc(c[3])}</i></div><div class="mu" style="color:inherit;opacity:.7;margin-top:14px">торкнись, щоб побачити переклад</div></div><div class="r" style="margin-top:12px"><button class="g" data-a="again">Ще раз</button><button class="p g" data-a="know">Знаю ✓</button></div><p class="mu">Ті самі картки з'являються в перервах між завданнями у розкладі.</p>`},
+mot(){const q=quote();
+return`<div class="q">${esc(q[0])}${q[1]?`<div style="font:400 14px Onest;margin-top:10px">— ${q[1]}</div>`:''}</div><div class="r" style="margin:12px 0"><button class="g" data-a="q">Інша цитата</button></div>`},
+arc(){return`<div class="c"><input id="at" style="width:100%" placeholder="Назва інструкції"><input id="ac" list="cl" style="width:100%;margin:8px 0" placeholder="Категорія (пиши свою)"><datalist id="cl">${[...new Set(S.notes.map(n=>n.c))].map(c=>`<option value="${esc(c)}">`).join('')}</datalist><textarea id="ab" rows="3" style="width:100%" placeholder="Кроки, команди, нотатки"></textarea><button class="p" style="margin-top:8px" data-a="addn">Зберегти</button></div><input id="sq" style="width:100%;margin-bottom:10px" placeholder="Пошук в архіві">`+S.notes.map((n,i)=>`<details class="c note" data-s="${esc((n.t+n.c+n.b).toLowerCase())}"><summary>${esc(n.t)} <span class="chip">${esc(n.c)}</span></summary><pre>${esc(n.b)}</pre><button data-a="deln" data-i="${i}" style="margin-top:8px">Видалити</button></details>`).join('')}};
+const TABS=[['plan','⚡','Сьогодні'],['proj','🧩','Проєкти'],['gym','💪','Тренування'],['learn','🧠','Картки'],['arc','🗂','Алгоритм'],['ppl','🎁','Люди'],['wx','🌤','Погода'],['bk','📖','Книги'],['set','⚙️','Налашт.']];
+function R(){$('#v').innerHTML=V[tab]();$('#nv').innerHTML=TABS.map(t=>`<button data-a="tab" data-v="${t[0]}" class="${t[0]==tab||(tab=='rd'&&t[0]=='bk')?'on':''}"><b>${t[1]}</b>${t[2]}</button>`).join('');$('#dt').textContent=new Date().toLocaleDateString(LC(),{timeZone:TZ,weekday:'long',day:'numeric',month:'long'});document.querySelectorAll('#v input:not([type]),#v input[type=text]').forEach(i=>i.maxLength=200);document.querySelectorAll('#v textarea').forEach(i=>i.maxLength=5000)}
+const g=i=>$('#'+i).value;
+const A={
+tab:e=>{tab=e.dataset.v;R();if(tab=='wx'&&Date.now()-(W?W.t:0)>6e5)wxLoad()},theme:()=>{const d=document.documentElement,dk=matchMedia('(prefers-color-scheme: dark)').matches,cur=d.dataset.theme||(dk?'dark':'light');d.dataset.theme=cur=='dark'?'light':'dark';try{localStorage.setItem('vektor:theme',d.dataset.theme)}catch(e){}},
+add:()=>{const t=g('nt').trim();if(!t)return toast('Введи назву');S.tasks.push({id:Date.now(),t,m:+g('nm')||30,p:+g('np'),e:+g('ne'),ty:g('ny'),done:0,subs:[]});save();R()},
+tg:e=>{const k=S.tasks[e.dataset.i];k.done=k.done?0:1;save();R()},del:e=>{S.tasks.splice(e.dataset.i,1);save();R()},
+sub:e=>{const v=g('si'+e.dataset.i).trim();if(v){S.tasks[e.dataset.i].subs.push({t:v,d:0});save();R()}},
+st:e=>{const s=S.tasks[e.dataset.i].subs[e.dataset.j];s.d=s.d?0:1;save()},
+opt:()=>{S.tasks.sort((a,b)=>a.done-b.done||(b.p*3+b.e*2)-(a.p*3+a.e*2)||a.m-b.m);save();R();toast('Найважче й найважливіше — на початок')},
+mf:e=>e.classList.toggle('open'),
+know:()=>{const p=pool();S.known[p[S.skip%p.length][0]]=1;S.skip=0;save();R()},again:()=>{S.skip++;save();R()},
+wd:e=>{wd=+e.dataset.i;R()},
+set:e=>{const i=e.dataset.i,w=+g('w'+i),r=+g('r'+i);if(!r)return toast('Вкажи повторення');S.split[wd].ex[i].log.push({d:today(),w,r});save();R()},
+addex:()=>{const n=g('nx').trim();if(n){S.split[wd].ex.push({n,log:[]});save();R()}},
+pull:()=>{const v=+g('pu');if(v){S.pull.push({d:today(),v});save();R()}},hold:()=>{const v=+g('hd');if(v){S.hold.push(v);save();R()}},
+stg:()=>{S.stage=Math.min(S.stage+1,STG.length-1);save();R()},
+q:()=>{S.qo++;save();R()},
+addn:()=>{const t=g('at').trim();if(!t)return toast('Додай назву');S.notes.unshift({id:Date.now(),t,c:g('ac').trim()||'Без категорії',b:g('ab')});save();R()},deln:e=>{S.notes.splice(e.dataset.i,1);save();R()}};
+document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(b&&A[b.dataset.a]&&b.type!='checkbox')A[b.dataset.a](b)});
+document.addEventListener('change',e=>{const t=e.target;if(t.dataset.a=='st')A.st(t);if(t.id=='stt'){S.start=t.value||'09:00';save();R()}});
+document.addEventListener('input',e=>{if(e.target.id=='sq'){const q=e.target.value.toLowerCase();document.querySelectorAll('.note').forEach(n=>n.style.display=n.dataset.s.includes(q)?'':'none')}});
+/* ===== Вектор: логістика енергії, проєкти, інкубатор ===== */
+const EN={'Жайворонок':'000000233332211122221110','Стандарт':'000000122333321123322110','Сова':'000000011122233321233332'},lvN=['відпочинок','спад','середній','пік'];
+const mk=(t,...k)=>({t,d:0,kids:k});
+S.en=S.en||EN['Стандарт'].split('').map(Number);S.ppl=S.ppl||[];
+S.proj=(S.proj||[]).filter(p=>p.t!='Сесія: економічна теорія'&&p.t!="Дерев'яний паркан");
+const nd=p=>{const a=p.split('.').map(Number);let n=S.proj[a[0]];for(let i=1;i<a.length;i++)n=n.kids[a[i]];return n};
+const par=p=>{const a=p.split('.');return a.length>1?nd(a.slice(0,-1).join('.')).kids:S.proj};
+const cn=n=>n.kids.length?n.kids.reduce((a,c)=>{const x=cn(c);return[a[0]+x[0],a[1]+x[1]]},[0,0]):[n.d?1:0,1];
+const dl=s=>{if(!s)return'';const n=new Date(),d=new Date(s),b=new Date(n.getFullYear(),n.getMonth(),n.getDate()),x=new Date(n.getFullYear(),d.getMonth(),d.getDate());if(x<b)x.setFullYear(x.getFullYear()+1);return Math.round((x-b)/864e5)};
+
+/* Алгоритм: ставимо найважчі задачі в години, де рівень енергії відповідає ресурсу; потім компроміс */
+function route(){const E=S.en,pl=[],un=[];let s=S.start.split(':').map(Number);s=Math.ceil((s[0]*60+s[1])/15)*15;
+const lv=(t,m)=>{const a=[];for(let x=t;x<t+m;x+=15)a.push(E[Math.floor(x/60)%24]);return a};
+const ok=(k,t,p)=>{const a=lv(t,k.m);if(k.e==1)return p==0?a.every(v=>v==1):p==1?a.every(v=>v>0&&v<3):a.every(v=>v>0);return p==0?a.every(v=>v>=k.e):p==1?a.every(v=>v>0&&v>=k.e-1):a.every(v=>v>0)};
+S.tasks.filter(k=>!k.done).sort((a,b)=>b.e-a.e||b.p-a.p).forEach(k=>{for(let p=0;p<3;p++)for(let t=s;t+k.m<=1380;t+=15){if(pl.some(b=>t<b.t+b.k.m+5&&t+k.m+5>b.t))continue;if(ok(k,t,p)){pl.push({t,k,p});return}}un.push(k)});
+return{pl:pl.sort((a,b)=>a.t-b.t),un}}
+
+const strip=()=>`<div class="en">${S.en.slice(6).map((l,i)=>`<button data-a="eh" data-h="${i+6}" aria-label="${i+6}:00, ${lvN[l]}" style="height:${12+l*17}px;opacity:${[.15,.4,.7,1][l]}"></button>`).join('')}</div><div class="hr">${S.en.slice(6).map((l,i)=>`<span>${(i+6)%3==0?i+6:''}</span>`).join('')}</div>`;
+const tc=(k,i,tm,x)=>`<div class="row"><div class="tm">${tm}<small>${k.m} хв</small></div><div class="c ${k.done?'dn':''}"><div class="r"><button class="ck" data-a="tg" data-i="${i}" aria-label="Готово">${k.done?'✓':''}</button><div class="g tt">${TY[k.ty]} ${esc(k.t)}</div><button data-a="del" data-i="${i}" aria-label="Видалити">×</button></div><div class="r" style="margin:6px 0 0 36px">${x||''}</div><div class="sub">${k.subs.map((s,j)=>`<label><input type="checkbox" data-a="st" data-i="${i}" data-j="${j}" ${s.d?'checked':''}>${esc(s.t)}</label>`).join('')}<div class="r"><input class="g" id="si${i}" placeholder="+ підзавдання"><button data-a="sub" data-i="${i}">Додати</button></div></div></div></div>`;
+
+V.plan=function(){const{pl,un}=route();let o='',pe=null,n=0,tot=0,dm=0;S.tasks.forEach(k=>{tot+=k.m;if(k.done)dm+=k.m});
+pl.forEach(({t,k,p})=>{if(pe!==null&&t-pe>=15)o+=`<div class="row brk"><div class="tm" style="background:var(--bd);color:var(--mu)">${f(pe+5)}<small>${t-pe-5} хв</small></div><div class="c"><div class="mu">${lvN[S.en[Math.floor(pe/60)%24]]}: час для фонового навчання</div>${mini(n++)}</div></div>`;
+o+=tc(k,S.tasks.indexOf(k),f(t),`<span class="chip">${lvN[S.en[Math.floor(t/60)%24]]}</span><span class="chip">ресурс ${'●'.repeat(k.e)}</span>${p?'<span class="chip">⚠ компроміс по енергії</span>':''}`);pe=t+k.m});
+const dn=S.tasks.map((k,i)=>[k,i]).filter(x=>x[0].done);
+return`<div class="c" style="background:var(--hl);color:#121a33;border:0">${esc(quote()[0])}</div>
+<h2 style="margin-top:0">Крива енергії</h2><div class="c">${strip()}<div class="r" style="margin-top:8px">${Object.keys(EN).map(x=>`<button data-a="pn" data-n="${x}">${x}</button>`).join('')}</div><div class="mu" style="margin-top:6px">Торкнись години, щоб змінити рівень: пік, середній, спад, відпочинок.</div></div>
+<div class="c"><div class="r"><input class="g" id="nt" placeholder="Нове завдання"><input class="in" id="nm" type="number" min="5" step="5" placeholder="хв"></div><div class="r" style="margin-top:8px"><select id="ne"><option value="3">Ресурс: важка робота</option><option value="2" selected>середня</option><option value="1">фонова</option></select><select id="np"><option value="3">Пріоритет: високий</option><option value="2" selected>середній</option><option value="1">низький</option></select><select id="ny"><option value="study">📚 Навчання</option><option value="sport">💪 Спорт</option><option value="hobby">🛠 Хобі</option><option value="eng">🗣 Англійська</option></select><button class="p" data-a="add">Додати в маршрут</button></div></div>
+<div class="r" style="margin:10px 0"><label class="mu">Старт <input type="time" id="stt" value="${S.start}"></label><span class="mu g" style="text-align:right">Фініш ${pe!==null?f(pe):'—'} · зроблено ${dm}/${tot} хв</span></div><div class="bar" style="margin-bottom:14px"><i style="width:${tot?dm/tot*100:0}%"></i></div>
+<div class="tl">${o||'<div class="mu">Активних завдань нема — додай нове або візьми пункт із проєкту.</div>'}</div>
+${un.length?`<div class="c mu">Не влізло до 23:00: ${un.map(k=>esc(k.t)).join(', ')}. Скороти завдання або зсунь старт.</div>`:''}
+${dn.length?`<h2>Готово</h2><div class="tl">${dn.map(([k,i])=>tc(k,i,'✓','')).join('')}</div>`:''}`};
+
+V.proj=function(){return`<div class="c"><div class="r"><input class="g" id="pn" placeholder="Нова мета або проєкт"><button class="p" data-a="pnew">Створити</button></div><div class="r" style="margin-top:8px"><input class="g" id="pin" placeholder="Текст підпункту"></div><div class="mu" style="margin-top:4px">Введи текст і торкнись «+» біля пункту, куди його вкласти. «→» переносить пункт у маршрут дня.</div></div>`+S.proj.map((n,i)=>{const c=cn(n);return`<div class="c"><div class="bar" style="margin-bottom:6px"><i style="width:${c[0]/c[1]*100}%"></i></div>${tree(n,''+i)}</div>`}).join('')};
+const tree=(n,p)=>{const c=cn(n),lf=!n.kids.length;return`<div class="nd"><div class="r">${lf?`<input type="checkbox" data-a="pt" data-p="${p}" ${n.d?'checked':''} aria-label="Готово">`:''}<span class="g ${lf&&n.d?'fin':''}">${lf?`<span class="tx">${esc(n.t)}</span>`:`<b>${esc(n.t)}</b> <span class="cnt">${c[0]}/${c[1]}</span>`}</span>${lf?`<button data-a="pp" data-p="${p}" aria-label="У маршрут">→</button>`:''}<button data-a="pa" data-p="${p}" aria-label="Додати підпункт">+</button><button data-a="pd" data-p="${p}" aria-label="Видалити">×</button></div>${n.kids.map((k,i)=>tree(k,p+'.'+i)).join('')}</div>`};
+
+V.ppl=function(){return`<h2 style="margin-top:0">Соціальний інкубатор</h2><div class="c"><div class="r"><input class="g" id="pnm" placeholder="Людина (напр. мама)"><input type="date" id="pdt" aria-label="Дата події"><button class="p" data-a="ap">Додати</button></div></div>`+(S.ppl.map((x,i)=>{const d=dl(x.dt);return`<div class="c"><div class="r"><b class="g">${esc(x.n)}</b>${d!==''?`<span class="chip">подія через ${d} дн.</span>`:''}<button data-a="dp" data-i="${i}" aria-label="Видалити">×</button></div>${x.ideas.map((s,j)=>`<div class="nd"><div class="r"><input type="checkbox" data-a="ti" data-i="${i}" data-j="${j}" ${s.d?'checked':''}><span class="g ${s.d?'fin':''}"><span class="tx">${esc(s.t)}</span></span><button data-a="di" data-i="${i}" data-j="${j}">×</button></div></div>`).join('')}<div class="r" style="margin-top:8px"><input class="g" id="ii${i}" placeholder="Ідея: дизайн, подарунок, сюрприз"><button data-a="ai" data-i="${i}">+</button></div></div>`}).join('')||'<p class="mu">Додай людину й ідеї для неї: дизайни, подарунки, сюрпризи. Дата події покаже, скільки лишилось днів.</p>')+V.mot()};
+
+Object.assign(A,{
+eh:e=>{const h=+e.dataset.h;S.en[h]=(S.en[h]+1)%4;save();R()},
+pn:e=>{S.en=EN[e.dataset.n].split('').map(Number);save();R()},
+pnew:()=>{const t=g('pn').trim();if(t){S.proj.push(mk(t));save();R()}},
+pt:e=>{const n=nd(e.dataset.p);n.d=n.d?0:1;save()},
+pa:e=>{const v=g('pin').trim();if(!v)return toast('Спершу введи текст підпункту');const n=nd(e.dataset.p);n.kids.push(mk(v));save();R()},
+pd:e=>{const p=e.dataset.p;par(p).splice(+p.split('.').pop(),1);save();R()},
+pp:e=>{S.tasks.push({id:Date.now(),t:nd(e.dataset.p).t,m:45,p:2,e:2,ty:'study',done:0,subs:[]});save();toast('Додано в маршрут дня')},
+ap:()=>{const n=g('pnm').trim();if(n){S.ppl.push({n,dt:g('pdt'),ideas:[]});save();R()}},
+dp:e=>{S.ppl.splice(e.dataset.i,1);save();R()},
+ai:e=>{const v=g('ii'+e.dataset.i).trim();if(v){S.ppl[e.dataset.i].ideas.push({t:v,d:0});save();R()}},
+di:e=>{S.ppl[e.dataset.i].ideas.splice(e.dataset.j,1);save();R()},
+ti:e=>{const s=S.ppl[e.dataset.i].ideas[e.dataset.j];s.d=s.d?0:1;save()}});
+document.addEventListener('change',e=>{const t=e.target,a=t.dataset.a;if(a=='pt'||a=='ti'){A[a](t);R()}});
+save();
+
+/* ===== Картки з власними категоріями, імпорт, правки спліту ===== */
+S.cu=S.cu||[];S.cat=S.cat||'';
+CARDS.push(['syllabus','Університет','навчальна програма','Check the syllabus before the lecture.'],['deadline','Університет','крайній термін','The deadline is on Friday.'],['assignment','Університет','завдання, робота','I finished the assignment early.'],['to cram','Університет','зубрити','He crammed all night for the exam.'],['reps','Спорт','повторення','Do eight reps per set.'],['to spot someone','Спорт','страхувати','Can you spot me on the bench?'],['plateau','Спорт','застій у прогресі','I hit a plateau in pull-ups.'],['grip','Спорт','хват','A wider grip is harder.'],['to bulk up','Спорт','набирати масу','He wants to bulk up this winter.'],['firmware','Технології','прошивка','Update the drone firmware.'],['to calibrate','Технології','калібрувати','Calibrate the compass first.'],['payload','Технології','корисне навантаження','The drone has a 200 g payload.'],['to troubleshoot','Технології','усувати несправності','Let\'s troubleshoot the issue.'],['latency','Технології','затримка','High latency ruins the flight.']);
+const cats=()=>[...new Set(allC().map(c=>c[1]))],cdl=id=>`<datalist id="${id}">${cats().map(c=>`<option value="${esc(c)}">`).join('')}</datalist>`;
+V.learn=function(){if(S.cat&&!cats().includes(S.cat))S.cat='';
+const a=allC().filter(c=>!S.cat||c[1]==S.cat),p=pool(),c=p[S.skip%p.length],k=a.filter(x=>S.known[x[0]]).length;
+return`<div class="r" style="margin-bottom:10px"><button data-a="cat" data-v="" class="${S.cat?'':'p'}">Усі</button>${cats().map(x=>`<button data-a="cat" data-v="${esc(x)}" class="${S.cat==x?'p':''}">${esc(x)}</button>`).join('')}</div>
+<div class="mu" style="margin-bottom:6px">Вивчено ${k} з ${a.length}</div><div class="bar" style="margin-bottom:14px"><i style="width:${a.length?k/a.length*100:0}%"></i></div>
+<div class="big" data-a="mf"><span class="chip" style="align-self:center;background:var(--at);color:var(--ac)">${esc(c[1])}</span><b style="margin-top:12px">${esc(c[0])}</b><div class="bk">${esc(c[2])}<br><i>${esc(c[3])}</i></div><div class="mu" style="color:inherit;opacity:.7;margin-top:14px">торкнись, щоб побачити переклад</div></div>
+<div class="r" style="margin-top:12px"><button class="g" data-a="again">Ще раз</button><button class="p g" data-a="know">Знаю ✓</button></div>
+<h2>Додати слово</h2><div class="c"><div class="r"><input class="g" id="we" placeholder="Слово або фраза"><input class="g" id="wu" placeholder="Переклад"></div><input id="wx" style="width:100%;margin-top:8px" placeholder="Приклад (необов'язково)"><div class="r" style="margin-top:8px"><input class="g" id="wc" list="wl" placeholder="Категорія (пиши свою)" value="${esc(S.cat)}">${cdl('wl')}<button class="p" data-a="aw">Додати</button></div></div>
+<h2>Імпорт списку</h2><div class="c"><textarea id="wi" rows="4" style="width:100%" placeholder="Кожен рядок: слово | переклад | приклад | категорія"></textarea><button data-a="iw" style="margin-top:8px">Імпортувати</button></div>
+${S.cu.length?`<details class="c"><summary>Мої слова (${S.cu.length})</summary>${S.cu.map((c,i)=>`<div class="r" style="margin-top:6px"><span class="g"><b>${esc(c[0])}</b> — ${esc(c[2])} <span class="chip">${esc(c[1])}</span></span><button data-a="dw" data-i="${i}" aria-label="Видалити слово">×</button></div>`).join('')}</details>`:''}`};
+Object.assign(A,{
+cat:e=>{S.cat=e.dataset.v;S.skip=0;save();R()},
+aw:()=>{const w=g('we').trim(),u=g('wu').trim();if(!w||!u)return toast('Потрібні слово й переклад');S.cu.push([w,g('wc').trim()||'Мої слова',u,g('wx').trim()]);save();R()},
+iw:()=>{let n=0;g('wi').split('\n').forEach(l=>{const a=l.split('|').map(x=>x.trim());if(a[0]&&a[1]){S.cu.push([a[0],a[3]||S.cat||'Мої слова',a[1],a[2]||'']);n++}});if(!n)return toast('Формат: слово | переклад | приклад | категорія');save();R();toast('Додано слів: '+n)},
+dw:e=>{S.cu.splice(e.dataset.i,1);save();R()},
+dx:e=>{S.split[wd].ex.splice(e.dataset.i,1);save();R();toast('Вправу видалено')},
+dset:e=>{S.split[wd].ex[e.dataset.i].log.splice(e.dataset.j,1);save();R()}});
+document.addEventListener('change',e=>{if(e.target.id=='dn'){S.split[wd].n=e.target.value.trim()||S.split[wd].n;save()}});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='nx')A.addex()});
+save();
+
+/* ===== Навички: повністю редаговані рівні, одиниці, записи ===== */
+S.skills=(S.skills||[]).filter(k=>!(k.n=='Стійка на руках'&&!k.log.length&&!k.i));
+const SE={};
+const skills=()=>S.skills.map((k,i)=>{const ed=SE[i],d=`data-k="${i}"`;
+return`<div class="c"><div class="r"><b class="g">${esc(k.n)}</b><button data-a="sed" ${d} class="${ed?'p':''}" aria-label="Налаштувати навичку">✎</button></div>`+(ed?
+`<div class="r" style="margin-top:8px"><input class="g" data-f="sn" ${d} value="${esc(k.n)}" placeholder="Назва навички"><input class="in" data-f="su" ${d} value="${esc(k.u)}" aria-label="Одиниця виміру"></div>${k.st.map((s,j)=>`<div class="r" style="margin-top:6px;flex-wrap:nowrap"><input class="g" data-f="ss" ${d} data-j="${j}" value="${esc(s)}" aria-label="Рівень ${j+1}"><button data-a="smv" ${d} data-j="${j}" data-d="-1" aria-label="Вище">↑</button><button data-a="smv" ${d} data-j="${j}" data-d="1" aria-label="Нижче">↓</button><button data-a="sdl" ${d} data-j="${j}" aria-label="Видалити рівень">×</button></div>`).join('')}<div class="r" style="margin-top:6px"><input class="g" id="sa${i}" placeholder="Новий рівень"><button class="p" data-a="sad" ${d}>Додати</button></div><div class="r" style="margin-top:10px"><button data-a="scl" ${d}>Очистити записи</button><button data-a="sdk" ${d}>Видалити навичку</button></div>`
+:`${k.st.map((s,j)=>`<div class="st ${j==k.i?'on':j<k.i?'past':''}" style="cursor:pointer" data-a="sset" ${d} data-j="${j}">${esc(s)}</div>`).join('')||'<div class="mu">Рівнів нема — натисни ✎ і додай.</div>'}<div class="r" style="margin-top:8px"><button data-a="sstep" ${d} data-d="-1" aria-label="Рівень нижче">▼</button><button data-a="sstep" ${d} data-d="1">Рівень пройдено ▲</button><input class="in" id="sv${i}" type="number" placeholder="${esc(k.u)}"><button class="p" data-a="slog" ${d}>Запис</button>${sp(k.log)}</div>`)+`</div>`}).join('')+`<div class="c r"><input class="g" id="skn" placeholder="Нова навичка (напр. фронтлевер)"><button class="p" data-a="sknew">Додати</button></div>`;
+Object.assign(A,{
+sed:e=>{SE[e.dataset.k]=!SE[e.dataset.k];R()},
+sset:e=>{S.skills[e.dataset.k].i=+e.dataset.j;save();R()},
+sstep:e=>{const k=S.skills[e.dataset.k];k.i=Math.max(0,Math.min(k.st.length-1,k.i+ +e.dataset.d));save();R()},
+slog:e=>{const v=+g('sv'+e.dataset.k);if(v){S.skills[e.dataset.k].log.push(v);save();R()}},
+smv:e=>{const k=S.skills[e.dataset.k],j=+e.dataset.j,t=j+ +e.dataset.d;if(t<0||t>=k.st.length)return;[k.st[j],k.st[t]]=[k.st[t],k.st[j]];if(k.i==j)k.i=t;else if(k.i==t)k.i=j;save();R()},
+sdl:e=>{const k=S.skills[e.dataset.k],j=+e.dataset.j;k.st.splice(j,1);if(k.i>=j&&k.i>0)k.i--;save();R()},
+sad:e=>{const v=g('sa'+e.dataset.k).trim();if(v){S.skills[e.dataset.k].st.push(v);save();R()}},
+scl:e=>{S.skills[e.dataset.k].log=[];save();R()},
+sdk:e=>{S.skills.splice(e.dataset.k,1);Object.keys(SE).forEach(x=>delete SE[x]);save();R()},
+sknew:()=>{const n=g('skn').trim();if(n){S.skills.push({n,u:'с',i:0,st:[],log:[]});SE[S.skills.length-1]=1;save();R()}}});
+document.addEventListener('change',e=>{const t=e.target,f=t.dataset.f;if(!f)return;const k=S.skills[t.dataset.k];if(f=='sn')k.n=t.value.trim()||k.n;if(f=='su')k.u=t.value.trim()||'с';if(f=='ss')k.st[t.dataset.j]=t.value.trim()||k.st[t.dataset.j];save()});
+save();
+
+/* ===== Час Києва та погода (Open-Meteo) ===== */
+const TZ=(()=>{try{new Intl.DateTimeFormat('uk',{timeZone:'Europe/Kyiv'});return'Europe/Kyiv'}catch(e){return'Europe/Kiev'}})();
+const kclock=()=>{const e=$('#ck');if(e)e.textContent=cn9(city()[0])+' · '+new Date().toLocaleTimeString(LC(),{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:H()})};
+const WC=c=>c==0?['☀️','Ясно']:c==1?['🌤','Переважно ясно']:c==2?['⛅','Мінлива хмарність']:c==3?['☁️','Хмарно']:c<=48?['🌫','Туман']:c<=57?['🌦','Мряка']:c<=67?['🌧','Дощ']:c<=77?['🌨','Сніг']:c<=82?['🌧','Злива']:c<=86?['🌨','Снігопад']:['⛈','Гроза'];
+const WDIR=['пн','пн-сх','сх','пд-сх','пд','пд-зх','зх','пн-зх'];
+const CITIES=[['Київ',50.45,30.52],['Харків',49.99,36.23],['Одеса',46.48,30.73],['Дніпро',48.46,35.05],['Донецьк',48.02,37.8],['Запоріжжя',47.84,35.14],['Львів',49.84,24.03],['Кривий Ріг',47.91,33.39],['Миколаїв',46.97,32.0],['Маріуполь',47.1,37.54],['Луганськ',48.57,39.31],['Вінниця',49.23,28.47],['Сімферополь',44.95,34.1],['Севастополь',44.62,33.52],['Херсон',46.64,32.62],['Полтава',49.59,34.55],['Чернігів',51.49,31.29],['Черкаси',49.44,32.06],['Суми',50.91,34.8],['Житомир',50.25,28.66],['Хмельницький',49.42,26.99],['Чернівці',48.29,25.94],['Рівне',50.62,26.25],['Кропивницький',48.51,32.26],['Івано-Франківськ',48.92,24.71],['Тернопіль',49.55,25.59],['Луцьк',50.75,25.34],['Ужгород',48.62,22.3],['Кам’янське',48.51,34.6],['Біла Церква',49.8,30.12],['Краматорськ',48.72,37.56],['Мелітополь',46.84,35.37],['Нікополь',47.57,34.4],['Бердянськ',46.76,36.8],['Слов’янськ',48.87,37.61],['Кременчук',49.07,33.42],['Умань',48.75,30.22],['Мукачево',48.44,22.72],['Дрогобич',49.35,23.51],['Коломия',48.53,25.04],['Кам’янець-Подільський',48.68,26.58],['Бровари',50.51,30.79],['Ірпінь',50.52,30.25],['Конотоп',51.24,33.2],['Ніжин',51.05,31.89],['Павлоград',48.53,35.87],['Чортків',49.02,25.8],['Стрий',49.26,23.85],['Яремче',48.45,24.55],['Буковель',48.36,24.4],['Охтирка',50.31,34.9],['Бердичів',49.89,28.6],['Ізмаїл',45.35,28.84],['Білгород-Дністровський',46.19,30.34],['Чорноморськ',46.3,30.66]],city=()=>CITIES.find(c=>c[0]==S.city)||CITIES[0];
+const wurl=c=>`https://api.open-meteo.com/v1/forecast?latitude=${c[1]}&longitude=${c[2]}&current=temperature_2m,apparent_temperature,relative_humidity_2m,precipitation,weather_code,wind_speed_10m,wind_direction_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&wind_speed_unit=ms&timezone=auto&forecast_days=7`;
+const wxOk=j=>{try{const c=j.c,d=j.d,n=v=>typeof v=='number'&&isFinite(v)?v:null,o={t:tn(j.t,0,0,9e15),k:ts(j.k,'',60),c:{},d:{time:[],weather_code:[],temperature_2m_max:[],temperature_2m_min:[],precipitation_sum:[]}};
+['temperature_2m','apparent_temperature','relative_humidity_2m','precipitation','weather_code','wind_speed_10m','wind_direction_10m'].forEach(k=>{o.c[k]=n(c[k]);if(o.c[k]===null)throw 0});
+for(let i=0;i<7;i++){if(!dre.test(d.time[i]))throw 0;o.d.time.push(d.time[i]);for(const k of Object.keys(o.d))if(k!='time'){const v=n(d[k][i]);if(v===null)throw 0;o.d[k].push(v)}}return o}catch(e){return null}};
+S.city=city()[0];let W=wxOk(S.wx);if(W&&W.k!=S.city)W=null;S.wx=W;let WS='';
+async function wxLoad(){if(WS=='load')return;WS='load';if(tab=='wx')R();const ct=city(),ac=new AbortController(),to=setTimeout(()=>ac.abort(),1e4);
+try{const r=await fetch(wurl(ct),{signal:ac.signal,credentials:'omit',referrerPolicy:'no-referrer'});if(!r.ok)throw 0;const j=await r.json(),n=wxOk({t:Date.now(),k:ct[0],c:j.current,d:j.daily});if(!n)throw 0;if(ct[0]!=city()[0]){WS='';clearTimeout(to);return wxLoad()}W=n;S.wx=W;save();WS=''}catch(e){WS='err'}
+clearTimeout(to);if(tab=='wx')R()}
+V.wx=function(){const c=W&&W.c,d=W&&W.d;
+if(!c)return`<div class="c"><div class="mu">${WS=='err'?'Не вдалося завантажити погоду. Перевір інтернет.':'Завантажую погоду…'}</div><button class="p" data-a="wxr" style="margin-top:8px">Спробувати ще</button></div>`;
+const w=WC(c.weather_code),u=new Date(W.t).toLocaleTimeString(LC(),{timeZone:TZ,hour:'2-digit',minute:'2-digit',hourCycle:H()}),r=x=>Math.round(x);
+return`<div class="big" style="cursor:default"><div style="font-size:56px;line-height:1">${w[0]}</div><b style="margin-top:8px">${r(c.temperature_2m)}°</b><div>${w[1]} · відчувається як ${r(c.apparent_temperature)}°</div></div>
+<div class="wg"><div class="c"><div class="mu">💧 Вологість</div><b>${r(c.relative_humidity_2m)}%</b></div><div class="c"><div class="mu">💨 Вітер</div><b>${r(c.wind_speed_10m)} м/с</b> <span class="mu">${WDIR[r(c.wind_direction_10m/45)%8]}</span></div><div class="c"><div class="mu">🌧 Опади зараз</div><b>${c.precipitation} мм</b></div><div class="c"><div class="mu">🌡 Сьогодні</div><b>${r(d.temperature_2m_min[0])}…${r(d.temperature_2m_max[0])}°</b></div></div>
+<h2>Прогноз на тиждень</h2><div class="c">${d.time.map((t,i)=>`<div class="wd"><span style="width:52px;text-transform:capitalize">${i?new Date(t+'T12:00:00').toLocaleDateString(LC(),{weekday:'short'}):'Сьогодні'}</span><span>${WC(d.weather_code[i])[0]}</span><span class="mu g">${d.precipitation_sum[i]>0?d.precipitation_sum[i]+' мм':''}</span><b>${r(d.temperature_2m_max[i])}°</b><span class="mu" style="width:36px;text-align:right">${r(d.temperature_2m_min[i])}°</span></div>`).join('')}</div>
+<div class="r"><span class="mu g">${esc(cn9(W.k))} · оновлено о ${u}${WS=='load'?' · оновлюю…':WS=='err'?' · немає зв’язку, показано збережене':''}</span><button data-a="wxr" aria-label="Оновити погоду">↻</button></div><p class="mu">Дані: Open-Meteo.com</p>`};
+A.wxr=()=>wxLoad();
+V.set=function(){return`<h2 style="margin-top:0">Погода</h2><div class="c"><label class="mu" for="cty">Місто України</label><select id="cty" style="width:100%;margin-top:6px">${[...CITIES].sort((a,b)=>a[0].localeCompare(b[0],'uk')).map(c=>`<option value="${esc(c[0])}" ${c[0]==S.city?'selected':''}>${esc(c[0])}</option>`).join('')}</select><div class="mu" style="margin-top:6px">Від міста залежать погода та підпис біля годинника.</div></div><h2>Вигляд</h2><div class="c"><button data-a="theme">◐ Змінити тему</button></div><h2>Дані</h2><div class="c"><div class="mu">Усе зберігається лише на цьому пристрої.</div><button data-a="reset" style="margin-top:8px">Скинути всі дані</button></div>`};
+A.reset=()=>{if(!confirm('Видалити всі дані застосунку на цьому пристрої?'))return;try{localStorage.removeItem(K)}catch(e){}location.reload()};
+document.addEventListener('change',e=>{if(e.target.id!='cty')return;const c=CITIES.find(x=>x[0]==e.target.value);if(c){S.city=c[0];W=null;S.wx=null;save();kclock();toast(lt('Місто|City')+': '+cn9(c[0]));wxLoad()}});
+try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}
+
+/* ===== Тренування: генератор програм, Книги, Гогінс, мова, вигляд ===== */
+const LS=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}},LW=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let LG=LS('vektor:lang','uk')=='en'?'en':'uk';
+const LC=()=>LG=='en'?'en-GB':'uk-UA';
+const lt=s=>{const p=s.split('|');return LG=='en'&&p[1]?p[1]:p[0]};
+QS.push(['Stay hard!','Девід Гогінс'],['Хто понесе човни? (Who\'s gonna carry the boats?)','Девід Гогінс'],['Не зупиняйся, коли втомився. Зупиняйся, коли закінчив.','Девід Гогінс'],['Будь незвичайним серед незвичайних.','Девід Гогінс'],['Нарощуй мозолі на розумі.','Девід Гогінс'],['Вони мене не знають, сину!','Девід Гогінс'],['Страждання — справжній іспит життя.','Девід Гогінс'],['Забираю душі. (Taking souls.)','Девід Гогінс']);
+const PX={sq:'Присідання|Squat',bp:'Жим лежачи|Bench press',rw:'Тяга штанги в нахилі|Barbell row',ohp:'Жим стоячи|Overhead press',rdl:'Румунська тяга|Romanian deadlift',dl:'Станова тяга|Deadlift',lunge:'Випади|Lunges',pl:'Планка|Plank',pu:'Підтягування|Pull-ups',pushup:'Віджимання|Push-ups',dip:'Віджимання на брусах|Dips',lat:'Тяга верхнього блоку|Lat pulldown',db:'Жим гантелей на похилій|Incline dumbbell press',lr:'Махи гантелями|Lateral raises',curl:'Підйом на біцепс|Biceps curl',tri:'Французький жим|Triceps extension',lp:'Жим ногами|Leg press',calf:'Підйом на носки|Calf raises',hang:'Підйом ніг у висі|Hanging leg raises',fsq:'Фронтальні присідання|Front squat',wpu:'Підтягування з вагою|Weighted pull-ups',inv:'Австралійські підтягування|Inverted rows',pike:'Піке-віджимання|Pike push-ups',pist:'Присідання-пістолет|Pistol squat',ring:'Віджимання на кільцях|Ring push-ups',mu:'Вихід силою|Muscle-up',hs:'Стійка на руках біля стіни|Wall handstand',ls:'L-sit|L-sit',fl:'Фронтлевер (прогресія)|Front lever progression',hp:'Віджимання в стійці на руках|Handstand push-ups'};
+const PT={fb:{n:'Фулбаді|Full body',b:[['A','sq:3×10,bp:3×10,rw:3×10,pl:3×45с'],['B','rdl:3×10,ohp:3×10,lat:3×12,lunge:3×10'],['C','sq:3×12,pushup:3×15,pu:3×макс,hang:3×10']],a:[['A','sq:5×5,bp:5×5,rw:4×6,ohp:3×8'],['B','dl:5×3,wpu:4×6,dip:4×8,fsq:3×6'],['C','sq:4×8,db:4×8,rw:4×8,hang:4×12']]},
+ul:{n:'Верх/низ|Upper/Lower',b:[['Верх|Upper','bp:3×10,rw:3×10,ohp:3×10,lat:3×12,curl:3×12'],['Низ|Lower','sq:3×10,rdl:3×10,lp:3×12,calf:3×15,pl:3×45с']],a:[['Верх|Upper','bp:5×5,wpu:4×6,ohp:4×6,rw:4×8,tri:3×10'],['Низ|Lower','sq:5×5,rdl:4×6,lunge:3×10,calf:4×15,hang:3×12']]},
+ppl:{n:'Push/Pull/Legs',b:[['Push','bp,db,ohp,lr,tri'],['Pull','pu,lat,rw,curl'],['Legs','sq,rdl,lp,calf']],a:[['Push','bp,db,ohp,dip,lr,tri'],['Pull','wpu,rw,lat,curl'],['Legs','sq,rdl,fsq,lunge,calf']]},
+sp:{n:'Класичний спліт|Bro split',b:[['Груди + трицепс|Chest + triceps','bp,db,dip,tri'],['Спина + біцепс|Back + biceps','pu,rw,lat,curl'],['Ноги|Legs','sq,rdl,lp,calf'],['Плечі + прес|Shoulders + abs','ohp,lr,hang,pl'],['Руки|Arms','curl,tri,dip,pl']],a:[['Груди + трицепс|Chest + triceps','bp,db,dip,tri'],['Спина + біцепс|Back + biceps','wpu,rw,lat,curl'],['Ноги|Legs','sq,rdl,fsq,lunge,calf'],['Плечі + прес|Shoulders + abs','ohp,lr,hang,pl'],['Руки|Arms','curl,tri,dip,pl']]},
+cal:{n:'Калістеніка|Calisthenics',b:[['A','pushup:3×12,inv:3×10,sq:3×15,pl:3×45с'],['B','dip:3×8,pu:3×макс,lunge:3×10,hang:3×8']],a:[['A','pu:5×8,dip:5×10,pike:4×8,pist:3×5,ls:4×15с'],['B','ring:4×10,hp:4×5,fl:4×10с,pist:3×5,hs:5×30с']]},
+wo:{n:'Воркаут (вулиця)|Street workout',b:[['A','pu:4×6,dip:4×8,pushup:3×15,hang:3×10'],['B','inv:4×10,pike:3×8,sq:4×20,pl:3×60с']],a:[['A','mu:5×3,hp:4×5,fl:4×10с,ls:4×15с'],['B','wpu:5×5,ring:4×10,pist:4×6,hs:5×30с']]}};
+const D={'Сьогодні':'Today','Проєкти':'Projects','Тренування':'Training','Картки':'Cards','Алгоритм':'Algorithm','Люди':'People','Погода':'Weather','Налашт.':'Settings','Книги':'Books','Пн':'Mon','Вт':'Tue','Ср':'Wed','Чт':'Thu','Пт':'Fri','Сб':'Sat','Нд':'Sun','Підтягування':'Pull-ups','Навички':'Skills','Вигляд':'Appearance','Дані':'Data','Мова':'Language','Кастомізація':'Customization','Акцентний колір':'Accent color','Розмір тексту':'Text size','Додати':'Add','Записати':'Log','+ підхід':'+ set','Створити':'Create','Генератор програм':'Program generator','Базові вправи':'Basic exercises','Просунуті вправи':'Advanced exercises','Застосувати до тижня':'Apply to week','Замінить вправи у всіх днях тижня (журнал підходів зникне).':'Replaces exercises on every day of the week (set log will be cleared).','Нова вправа в цей день':'New exercise for this day','Сьогодні підходів ще нема':'No sets today yet','Назва книги':'Book title','Автор':'Author','Категорія':'Category','Відкрити':'Open','Мотивація':'Motivation','Нове завдання':'New task','Нова мета або проєкт':'New goal or project','Інша цитата':'Another quote','Ще раз':'Again','Знаю ✓':'Know ✓','Усе зберігається лише на цьому пристрої.':'Everything is stored on this device only.','Скинути всі дані':'Reset all data','Змінити тему':'Switch theme','Місто України':'City','Нова навичка (напр. фронтлевер)':'New skill (e.g. front lever)','Рівень пройдено':'Level done','Прогрес, %':'Progress, %','Видалити':'Delete','Додай назву':'Add a title','Введи назву':'Enter a title','Вправу видалено':'Exercise deleted','Спершу додай PDF':'Attach a PDF first','Прогноз на тиждень':'Weekly forecast','Крива енергії':'Energy curve','Готово':'Done','Імпорт списку':'Import list','Додати слово':'Add word','Соціальний інкубатор':'Social incubator','Мої слова':'My words','Усі':'All','Нова вправа':'New exercise','Тема':'Theme','Старт':'Start','Найважче й найважливіше — на початок':'Hardest and most important first'};
+const _R=R;R=function(){_R();if(LG=='en'){$('#dt').textContent=new Date().toLocaleDateString('en-GB',{timeZone:TZ,weekday:'long',day:'numeric',month:'long'});tr($('#v'));tr($('#nv'))}};
+
+const BC='Мотивація',BT="======================================================================\n         ДЕВІД ҐОҐҐІНС: НІЧОГО МЕНЕ НЕ ЗЛАМАЄ (CAN'T HURT ME)\n             Стисла вижимка, головні концепції та інструменти\n======================================================================\n\n1. ГОЛОВНА ІДЕЯ КНИГИ\n----------------------------------------------------------------------\nБільшість людей використовують лише близько 40% свого потенціалу. \nНаш мозок має внутрішній «запобіжник» (governor), який вмикається при \nперших ознаках болю, втоми чи дискомфорту, намагаючись захистити нас. \n\nСправжній розвиток починається тоді, коли ви свідомо переступаєте через \nцей бар'єр, виходьте із зони комфорту та будуєте «броньований розум».\n\n----------------------------------------------------------------------\n2. 7 КЛЮЧОВИХ ІНСТРУМЕНТІВ ДЕВІДА ҐОҐҐІНСА\n----------------------------------------------------------------------\n\n1. ДЗЕРКАЛО ВІДПОВІДАЛЬНОСТІ (Accountability Mirror)\n   • Суть: Жорстка і чесна самооцінка без прикрас та виправдань.\n   • Практика: Наклеюйте на дзеркало стікери зі своїми слабкостями, \n     страхами, недоліками та конкретними цілями. Щоранку дивіться собі \n     в очі та вимагайте від себе звіту за кожну дію.\n\n2. ПРАВИЛО 40% (The 40% Rule)\n   • Суть: Коли ви відчуваєте виснаження і ваш розум каже, що ви більше \n     не спроможні зробити жодного кроку — ви використали лише 40% ресурсів.\n   • Практика: У моменти найбільшої втоми усвідомте, що це лише захист \n     мозку. Пробивайте цей бар'єр і робіть ще 5-10% понад заплановане.\n\n3. БАНКА З ПЕЧИВОМ (The Cookie Jar)\n   • Суть: Ментальний резервуар вашої внутрішньої сили.\n   • Практика: Запишіть усі свої минулі перемоги, подолані труднощі, \n     біль та виклики, які ви змогли пережити. У важкі хвилини «діставайте \n     печиво» з пам'яті — згадуйте, хто ви є і через що вже пройшли.\n\n4. ЗАХОПЛЕННЯ ДУШ (Taking Souls)\n   • Суть: Ментальне домінування над труднощами, суперниками чи болем.\n   • Практика: Коли обставини, суперники або критики очікують вашого \n     зламу, працюйте із потрійною силою. Покажіть їм, що їхній тиск \n     робить вас тільки сильнішими.\n\n5. ЗАГАРТУВАННЯ РОЗУМУ (Callousing the Mind)\n   • Суть: Розум загартовується так само, як шкіра на руках — через \n     тертя та постійне навантаження.\n   • Практика: Щодня робіть те, що викликає у вас дискомфорт або \n     лінь (ранковий біг, холодна вода, важке навчання, прибирання). \n     Привчайте розум до дисципліни.\n\n6. ЗАПИТАННЯ «ЩО, ЯКЩО?» (What If?)\n   • Суть: Інструмент для подолання зневіри оточуючих та власних сумнівів.\n   • Практика: Коли люди або ваш власний страх кажуть, що це неможливо, \n     запитайте себе: «А що, якщо я зможу це зробити?». Це перетворює \n     сумніви на паливо.\n\n7. АНАЛІЗ ПОРАЗОК / ПІСЛЯОПЕРАЦІЙНИЙ ОГЛЯД (After Action Report)\n   • Суть: Поразка — це не фінал, а джерело цінних даних для зростання.\n   • Практика: Після невдачі приберіть емоції та саможаль. Проаналізуйте: \n     що пішло не так, як ви відреагували, які помилки допущено та що \n     зробите інакше наступного разу.\n\n----------------------------------------------------------------------\n3. ОСНОВНІ ЖИТТЄВІ УРОКИ\n----------------------------------------------------------------------\n• Ніхто не прийде тебе рятувати: Твоє минуле чи важке дитинство — це \n  не виправдання для слабкості, а стартовий майданчик та паливо.\n• Мотивація — це дурниця, дисципліна — це все: Мотивація швидко минає, \n  коли стає боляче чи холодно. Працює тільки залізна дисципліна.\n• Прийми свої \"погані карти\": Не порівнюй себе з іншими. Грай тими \n  картами, які тобі випали, і витискай з них максимум.\n• Не зупиняйся, коли втомився. Зупиняйся, коли справу зроблено.\n\n======================================================================";
+let BK=LS('vektor:bk',null)||[{id:'g1',t:"Нічого мене не зламає (Can't Hurt Me)",a:'David Goggins',c:BC,p:0},{id:'g2',t:'Never Finished',a:'David Goggins',c:BC,p:0}];
+const sb=()=>LW('vektor:bk',BK.map(b=>b.id=='g1'||b.id=='g2'?{...b,x:undefined}:b)),bx=b=>b.id=='g1'?(LG=='en'?BTE:BT):b.id=='g2'?(LG=='en'?BTE2:BT2):b.x||'';
+V.bk=function(){const cs=[...new Set(BK.map(b=>b.c))];
+return`<h2 style="margin-top:0">Книги</h2><div class="c"><div class="r"><input class="g" id="bt" placeholder="Назва книги"><input class="g" id="ba" placeholder="Автор"></div><div class="r" style="margin-top:8px"><input class="g" id="bc" list="bcl" placeholder="Категорія"><datalist id="bcl">${cs.map(c=>`<option value="${esc(c)}">`).join('')}</datalist><button class="p" data-a="bkadd">Додати</button></div></div>`+cs.map(c=>`<h2>${esc(c)}</h2>`+BK.map((b,i)=>b.c!=c?'':`<div class="c"><div class="r"><b class="g">${esc(b.t)}</b><button data-a="bkdel" data-i="${i}" aria-label="Видалити">×</button></div><div class="mu">${esc(b.a)}</div><div class="bar" style="margin:8px 0"><i style="width:${b.p}%"></i></div><div class="r"><input class="in" id="bkp${i}" type="number" min="0" max="100" value="${b.p}" aria-label="Прогрес, %"><span class="mu">%</span><span class="g"></span><label class="chip" style="cursor:pointer"><input type="file" accept=".txt,.md,text/plain" id="bkf${i}" hidden>📎 Текст</label><button class="p" data-a="bkopen" data-i="${i}">Відкрити</button></div></div>`).join('')).join('')};
+let RD=-1;
+const rdh=x=>x.split('\n').map(l=>/^={10,}\s*$/.test(l)?'<hr style="border:0;border-top:2px solid var(--bd);margin:10px 0">':/^-{10,}\s*$/.test(l)?'<hr style="border:0;border-top:1px solid var(--bd);margin:8px 0">':/^ {8,}\S/.test(l)?`<div style="text-align:center;font-weight:700;margin:2px 0">${esc(l.trim())}</div>`:`<div style="white-space:pre-wrap;overflow-wrap:anywhere;min-height:1.2em">${esc(l)}</div>`).join('');
+V.rd=function(){const b=BK[RD],x=b?bx(b):'';const back=`<div class="r" style="margin-bottom:10px"><button data-a="rdback">← Книги</button></div>`;if(!b||!x)return back;
+return back+`<div class="c"><h2 style="margin-top:0">${esc(b.t)}</h2><div class="mu">${esc(b.a)}</div><div data-nt style="margin-top:14px;font-size:16px;line-height:1.6">${rdh(x)}</div></div><div class="r" style="margin-bottom:80px"><button data-a="rdback">← Книги</button></div>`};
+const FF={on:'Onest,sans-serif',sys:'system-ui,sans-serif',serif:'Georgia,serif',mono:'ui-monospace,Menlo,Consolas,monospace',unb:'Unbounded,sans-serif'};
+const PRS={'Північ':{bg:'#0c1222',sf:'#151d33',tx:'#e7ecff',mu:'#8f9bc2',bd:'#26314f',ac:'#8aa8ff'},'Папір':{bg:'#f6f1e7',sf:'#fffaf0',tx:'#2b2417',mu:'#7a6e58',bd:'#e0d6bf',ac:'#b45309'},'Ліс':{bg:'#0f1a14',sf:'#16261c',tx:'#e6f4ea',mu:'#8fb59b',bd:'#27402f',ac:'#4ade80'},'Роза':{bg:'#1c1018',sf:'#2a1823',tx:'#ffe8f1',mu:'#c995ab',bd:'#47283a',ac:'#fb7185'},'Моно':{bg:'#ffffff',sf:'#f4f4f5',tx:'#09090b',mu:'#71717a',bd:'#d4d4d8',ac:'#09090b'}};
+
+const _vs0=V.set;V.set=()=>{const u=LS('vektor:ui',{}),cs=getComputedStyle(document.documentElement),cv=k=>{const v=u[k]||cs.getPropertyValue('--'+k).trim();return/^#[0-9a-f]{6}$/i.test(v)?v:'#808080'},
+col=(k,l)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><input type="color" data-ui="${k}" value="${cv(k)}"></label>`,
+sel=(k,l,o)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><select data-ui="${k}">${o.map(x=>`<option value="${x[0]}" ${(u[k]??o[0][0])==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></label>`,
+rg=(k,l,a,b,s,d)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><input type="range" data-ui="${k}" min="${a}" max="${b}" step="${s}" value="${u[k]??d}"></label>`,
+ck=(k,l)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><input type="checkbox" data-ui="${k}" ${u[k]?'checked':''}></label>`,
+fo=[['on','Onest'],['sys','Системний'],['serif','З засічками'],['mono','Моноширинний'],['unb','Unbounded']];
+return _vs0()+`<h2>Мова</h2><div class="c r"><button class="g ${LG=='uk'?'p':''}" data-a="lang" data-v="uk">Українська</button><button class="g ${LG=='en'?'p':''}" data-a="lang" data-v="en">English</button></div><h2>Кастомізація</h2><div class="c"><div class="mu">Пресети</div><div class="r" style="margin:8px 0">${Object.keys(PRS).map(k=>`<button data-a="uiprs" data-v="${k}">${k}</button>`).join('')}</div>${col('ac','Акцент')}${col('hl','Підсвітка')}${col('bg','Фон')}${col('sf','Картки')}${col('tx','Текст')}${col('mu','Приглушений текст')}${col('bd','Рамки')}</div><div class="c">${sel('bf','Шрифт тексту',fo)}${sel('hf','Шрифт заголовків',[['unb','Unbounded'],...fo.slice(0,4)])}${rg('z','Розмір тексту',.8,1.4,.05,1)}${rg('rd','Закруглення',0,26,1,14)}${sel('dn','Щільність',[[1,'Звичайна'],[0,'Компактна'],[2,'Простора']])}${rg('mw','Ширина',420,1000,20,560)}${ck('ng','Сховати сітку на фоні')}${ck('sh','Тіні карток')}${ck('nl','Сховати підписи вкладок')}${ck('hc','Сховати дату й годинник')}<button data-a="uirst" style="margin-top:8px">Скинути вигляд</button></div>`};
+Object.assign(D,{'Пресети':'Presets','Північ':'Midnight','Папір':'Paper','Ліс':'Forest','Роза':'Rose','Моно':'Mono','Акцент':'Accent','Підсвітка':'Highlight','Фон':'Background','Картки':'Cards','Текст':'Text','Приглушений текст':'Muted text','Рамки':'Borders','Шрифт тексту':'Body font','Шрифт заголовків':'Heading font','Системний':'System','З засічками':'Serif','Моноширинний':'Monospace','Закруглення':'Corner radius','Щільність':'Density','Звичайна':'Normal','Компактна':'Compact','Простора':'Spacious','Ширина':'Width','Сховати сітку на фоні':'Hide background grid','Тіні карток':'Card shadows','Сховати підписи вкладок':'Hide tab labels','Сховати дату й годинник':'Hide date and clock','Скинути вигляд':'Reset appearance','Відпочинок':'Rest','Спершу додай текст':'Attach a text first','Текст збережено':'Text saved','Дозволь спливні вікна':'Allow pop-ups','Ідея: дизайн, подарунок, сюрприз':'Idea: design, gift, surprise','Імпортувати':'Import','Англійська':'English','Введи текст і торкнись «+» біля пункту, куди його вкласти. «→» переносить пункт у маршрут дня.':'Type text and tap “+” next to the item to nest it under. “→” moves the item to the day route.','Вивчено':'Learned','Видалити вправу':'Delete exercise','Видалити навичку':'Delete skill','Видалити підхід':'Delete set','Видалити рівень':'Delete level','Видалити слово':'Delete word','Вище':'Up','Нижче':'Down','Вологість':'Humidity','Від міста залежать погода та підпис біля годинника.':'Weather and the clock label depend on the city.','Вітер':'Wind','Дані: Open-Meteo.com':'Data: Open-Meteo.com','Дата події':'Event date','Додай людину й ідеї для неї: дизайни, подарунки, сюрпризи. Дата події покаже, скільки лишилось днів.':'Add a person and ideas for them: designs, gifts, surprises. The event date shows days left.','Додати в маршрут':'Add to route','Додати підпункт':'Add sub-item','Запис':'Log','Зберегти':'Save','Зусилля: великі':'Effort: high','Категорія (пиши свою)':'Category (type your own)','Кроки, команди, нотатки':'Steps, commands, notes','Людина (напр. мама)':'Person (e.g. mom)','Навчання':'Study','Назва дня (можна змінити)':'Day name (editable)','Назва навички':'Skill name','Назва інструкції':'Instruction title','Налаштувати навичку':'Edit skill','Новий рівень':'New level','Одиниця виміру':'Unit','Оновити погоду':'Refresh weather','Опади зараз':'Precipitation now','Оптимізувати маршрут':'Optimize route','Очистити записи':'Clear logs','Перерва — картка для мозку':'Break — a brain card','Пошук в архіві':'Search archive','Приклад (необов\'язково)':'Example (optional)','Пріоритет: високий':'Priority: high','Рекорд:':'Record:','Ресурс: важка робота':'Energy: heavy work','Рівень':'Level','Рівень нижче':'Level down','Рівень пройдено':'Level done','Рівнів нема — натисни ✎ і додай.':'No levels — tap ✎ to add.','Скинути':'Reset','Скороти завдання або зсунь старт.':'Shorten tasks or move the start.','Слово або фраза':'Word or phrase','Спорт':'Sport','Спробувати ще':'Try again','Текст підпункту':'Sub-item text','Торкнись години, щоб змінити рівень: пік, середній, спад, відпочинок.':'Tap an hour to change the level: peak, medium, dip, rest.','Ті самі картки з\'являються в перервах між завданнями у розкладі.':'The same cards appear in breaks between tasks.','У маршрут':'To route','Фініш':'Finish','Хобі':'Hobby','Не влізло до 23:00:':'Did not fit before 23:00:','відчувається як':'feels like','дн.':'days','зроблено':'done','Зроблено':'Done','з':'of','зусилля':'effort','м/с':'m/s','малі':'low','мм':'mm','низький':'low','оновлено о':'updated at','повт.':'reps','пріоритет':'priority','підзавдання':'subtasks','підхід':'set','ресурс':'energy','середня':'medium','середні':'medium','середній':'medium','спад':'dip','пік':'peak','відпочинок':'rest','торкнись, щоб побачити переклад':'tap to see translation','фонова':'background','хв':'min','фініш о':'finish at','час для фонового навчання':'time for background study','Місто:':'City:','Додано слів:':'Words added:','Формат: слово':'Format: word','Кожен рядок:':'Each line:','слово':'word','переклад':'translation','приклад':'example','категорія':'category','Потрібні слово й переклад':'Word and translation required','Вкажи повторення':'Enter reps','Додано в маршрут дня':'Added to day route','Спершу введи текст підпункту':'Type the sub-item text first','Програму застосовано':'Program applied','Видалити всі дані застосунку на цьому пристрої?':'Delete all app data on this device?','Замінити вправи на всьому тижні?':'Replace exercises for the whole week?','Без категорії':'No category','Ясно':'Clear','Переважно ясно':'Mostly clear','Мінлива хмарність':'Partly cloudy','Хмарно':'Cloudy','Туман':'Fog','Мряка':'Drizzle','Дощ':'Rain','Сніг':'Snow','Злива':'Heavy rain','Снігопад':'Heavy snow','Гроза':'Thunderstorm','пн':'N','пн-сх':'NE','сх':'E','пд-сх':'SE','пд':'S','пд-зх':'SW','зх':'W','пн-зх':'NW','Жайворонок':'Lark','Стандарт':'Standard','Сова':'Owl','Імпорт':'Import','Прогноз':'Forecast','Текст підпункту':'Sub-item text','Пошук':'Search','Мої слова':'My words','Знаю':'Know','Нотатки':'Notes','Інструкції':'Instructions','Нова нотатка':'New note','Видалити всі':'Delete all','Налаштування':'Settings'});
+Object.values(PX).forEach(v=>{const p=v.split('|');D[p[0]]=p[1]});
+Object.values(PT).forEach(t=>{const p=t.n.split('|');D[p[0]]=p[1];[...t.b,...t.a].forEach(d=>{const q=d[0].split('|');if(q[1])D[q[0]]=q[1]})});
+Object.assign(D,{
+'Активних завдань нема — додай нове або візьми пункт із проєкту.':'No active tasks — add one or pull an item from a project.','⚠ компроміс по енергії':'⚠ energy compromise','+ підзавдання':'+ subtask','рекорд':'record','кг':'kg','Переклад':'Translation','подія через':'event in','оновлюю…':'updating…','немає зв’язку, показано збережене':'offline, showing saved data','Не вдалося завантажити погоду. Перевір інтернет.':'Could not load the weather. Check your connection.','Завантажую погоду…':'Loading weather…',
+'ідіома':'idiom','сленг':'slang','Університет':'University','Технології':'Technology','Дрони':'Drones','Мої слова':'My words',
+"Нічого мене не зламає (Can't Hurt Me)":"Can't Hurt Me",
+'Лінійна алгебра: 10 задач':'Linear algebra: 10 problems','Економічна теорія: конспект глави':'Economics: chapter notes','Повторити білети до сесії':'Review exam tickets','Тренування за спліт':'Split workout','Системи рівнянь':'Systems of equations','Власні числа':'Eigenvalues',
+"Підтягування (об'єм)":'Pull-ups (volume)','Віджимання в стійці біля стіни':'Wall handstand push-ups','Відтискання на кільцях':'Ring push-ups',
+'Матриці в Excel':'Matrices in Excel','Word: нумерація з 3-ї сторінки':'Word: page numbering from page 3','Дрон: чекліст перед польотом':'Drone: pre-flight checklist',
+'Множення: MMULT(A;B), обернена: MINVERSE, визначник: MDETERM, транспонування: TRANSPOSE.\nУ старих версіях завершуй формулу Ctrl+Shift+Enter. Назви функцій в укр. Excel відрізняються.':'Multiplication: MMULT(A;B), inverse: MINVERSE, determinant: MDETERM, transpose: TRANSPOSE.\nIn older versions finish the formula with Ctrl+Shift+Enter. Function names differ in the Ukrainian Excel.',
+'Вставлення → Номер сторінки → Формат. Макет → Розриви → Наступна сторінка. Вимкни «Як у попередньому розділі» й задай початок з 1.':'Insert → Page Number → Format. Layout → Breaks → Next Page. Turn off “Link to Previous” and set the start to 1.',
+'Заряд АКБ і пульта · пропелери без тріщин · калібровка компаса · GPS ≥ 8 супутників · точка повернення · відкритий майданчик.':'Battery and controller charged · propellers without cracks · compass calibrated · GPS ≥ 8 satellites · return point set · open area.',
+'Леся Українка':'Lesya Ukrainka','Григорій Сковорода':'Hryhorii Skovoroda','Тарас Шевченко':'Taras Shevchenko','Народна мудрість':'Folk wisdom','Василь Стус':'Vasyl Stus','Іван Франко':'Ivan Franko','Ліна Костенко':'Lina Kostenko','Девід Гогінс':'David Goggins',
+'Contra spem spero! — сподіваюсь без надії.':'Contra spem spero! — I hope without hope.','Світ ловив мене, та не спіймав.':'The world tried to catch me, but could not.','Борітеся — поборете!':'Struggle and you will prevail!','Сьогодні ти робиш те, за що завтра скажеш собі дякую.':"Today, do what you'll thank yourself for tomorrow.",'Маленький крок щодня переможе великий ривок раз на місяць.':'A small step every day beats a big sprint once a month.','План — це спокій. Виконання — це сила. Починай з першого пункту.':'A plan is calm. Execution is power. Start with the first item.','Не чекай настрою — створи рух, і настрій прийде.':"Don't wait for the mood — create motion and the mood will follow.",'Складне — це багато простих кроків у правильному порядку.':'Hard is just many simple steps in the right order.','Кожен підхід і кожна задача — цеглина в кращій версії тебе.':'Every set and every task is a brick in a better version of you.','Терпіння і труд усе перетруть.':'Patience and hard work grind through everything.','Без труда нема плода.':'No pain, no gain.','Початок — половина діла.':'A good start is half the work.','Вовків боятися — в ліс не ходити.':"If you fear wolves, don't go into the forest.",'Повторення — мати навчання.':'Repetition is the mother of learning.','Землю красить сонце, а людину — праця.':'The sun adorns the earth, and work adorns a person.','Не боги горщики ліплять.':"It's not gods who mold the pots.",'Очі бояться, а руки роблять.':'Eyes are afraid, but hands get it done.','Що посієш, те й пожнеш.':'You reap what you sow.','Тихіше їдеш — далі будеш.':'Slow and steady wins the race.','І чужому научайтесь, й свого не цурайтесь.':"Learn from others, but don't forsake your own.",'В своїй хаті своя правда, і сила, і воля.':'In your own home you have your own truth, strength and freedom.','Народ мій є! Народ мій завжди буде!':'My people exist! My people will always be!','Лиш боротись — значить жить.':'Only to struggle is to live.','Страшні слова, коли вони мовчать.':'Words are terrifying when they are silent.','Дисципліна — це пам’ять про те, чого ти справді хочеш.':'Discipline is remembering what you truly want.','Робиш — вчишся. Вчишся — ростеш. Ростеш — робиш більше.':'You do — you learn. You learn — you grow. You grow — you do more.','Не порівнюй свій початок із чужою серединою.':"Don't compare your beginning to someone else's middle.",'Відпочинок — частина плану, а не нагорода за нього.':'Rest is part of the plan, not a reward for it.','Краще зробити на 70 % сьогодні, ніж ідеально — колись.':'Better 70% done today than perfect someday.','Одна глава, одна задача, одне тренування. Далі — наступне.':'One chapter, one task, one workout. Then the next.','Втома минає, а зроблене лишається.':'Fatigue passes, what you have done remains.','Великі речі складаються з нудних повторень.':'Big things are built from boring repetitions.','Прогрес не завжди помітний, але він завжди накопичується.':'Progress is not always visible, but it always accumulates.','Почни з п’яти хвилин — і побачиш, що вже йдеш.':"Start with five minutes — you'll see you're already moving.",'Помилка — це дані, а не вирок.':'A mistake is data, not a verdict.','Сильним тебе робить не настрій, а звичка.':'Habit, not mood, makes you strong.','Мужність — це не відсутність страху, а крок попри нього.':'Courage is not the absence of fear, but a step despite it.',
+"Хто понесе човни? (Who's gonna carry the boats?)":"Who's gonna carry the boats?",'Не зупиняйся, коли втомився. Зупиняйся, коли закінчив.':"Don't stop when you're tired. Stop when you're done.",'Будь незвичайним серед незвичайних.':'Be uncommon amongst uncommon people.','Нарощуй мозолі на розумі.':'Callous your mind.','Вони мене не знають, сину!':"They don't know me, son!",'Страждання — справжній іспит життя.':'Suffering is the true test of life.','Забираю душі. (Taking souls.)':'Taking souls.'});
+const CYR='А-Яа-яІіЇїЄєҐґ',DK=Object.keys(D).sort((a,b)=>b.length-a.length),RX=new RegExp(DK.map(k=>`(?<![${CYR}])`+k.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+`(?![${CYR}])`).join('|'),'g');
+const tx=s=>s.replace(RX,m=>D[m]);
+const TLM={а:'a',б:'b',в:'v',г:'h',ґ:'g',д:'d',е:'e',є:'ie',ж:'zh',з:'z',и:'y',і:'i',ї:'i',й:'i',к:'k',л:'l',м:'m',н:'n',о:'o',п:'p',р:'r',с:'s',т:'t',у:'u',ф:'f',х:'kh',ц:'ts',ч:'ch',ш:'sh',щ:'shch',ю:'iu',я:'ia',ь:'','’':'',"'":''},TLI={є:'Ye',ї:'Yi',й:'Y',ю:'Yu',я:'Ya'};
+const tl=s=>s.replace(/[А-Яа-яІіЇїЄєҐґ’']+/g,w=>{let o='';[...w].forEach((c,i)=>{const l=c.toLowerCase();o+=i==0&&TLI[l]?TLI[l]:(i==0?(TLM[l]||'').replace(/^./,x=>x.toUpperCase()):TLM[l]||'')});return o});
+const cn9=s=>LG=='en'?tl(s):s;
+function T9(m){return LG=='en'?tx(m):m}
+function tr(r){r.querySelectorAll('#dn').forEach(e=>{e.value=tx(e.value)});const w=document.createTreeWalker(r,NodeFilter.SHOW_TEXT),a=[];let n;while(n=w.nextNode())a.push(n);a.forEach(n=>{const p=n.parentNode;if(p.closest&&p.closest('[data-nt]'))return;n.nodeValue=p.tagName=='OPTION'&&p.parentNode.id=='cty'?tl(n.nodeValue):tx(n.nodeValue)});r.querySelectorAll('[placeholder],[aria-label],[title]').forEach(e=>['placeholder','aria-label','title'].forEach(k=>{const v=e.getAttribute(k);if(v)e.setAttribute(k,tx(v))}))}
+const _cf=window.confirm.bind(window);window.confirm=m=>_cf(T9(m));
+Object.assign(A,{
+bkadd:()=>{const t=g('bt').trim();if(!t)return toast('Введи назву');BK.push({id:'b'+Date.now(),t,a:g('ba').trim(),c:g('bc').trim()||'Без категорії',p:0});sb();R()},
+bkdel:e=>{BK.splice(e.dataset.i,1);sb();R()},
+bkopen:e=>{const i=+e.dataset.i;if(!BK[i]||!bx(BK[i]))return toast('Спершу додай текст');RD=i;tab='rd';R();window.scrollTo(0,0)},
+rdback:()=>{tab='bk';R();window.scrollTo(0,0)},
+lang:e=>{LG=e.dataset.v;LW('vektor:lang',LG);applyUI();R()},
+uiprs:e=>{const u=Object.assign(LS('vektor:ui',{}),PRS[e.dataset.v]);LW('vektor:ui',u);applyUI();R()},
+uirst:()=>{LW('vektor:ui',{});applyUI();R()}});
+const uh=e=>{const t=e.target,k=t.dataset.ui;if(!k)return;const u=LS('vektor:ui',{});u[k]=t.type=='checkbox'?t.checked:t.type=='range'?+t.value:t.value;LW('vektor:ui',u);applyUI()};
+document.addEventListener('input',uh);document.addEventListener('change',uh);
+document.addEventListener('change',e=>{const t=e.target,i=t.id||'';if(i.startsWith('bkp')){const b=BK[i.slice(3)];b.p=Math.max(0,Math.min(100,+t.value||0));sb();R()}else if(i.startsWith('bkf')&&t.files[0]){const b=BK[i.slice(3)];t.files[0].text().then(x=>{b.x=x.slice(0,2e5);sb();R();toast('Текст збережено')})}});
+applyUI();
+const tu=s=>LG=='en'?s.replace('макс','max').replace(/(\d)с$/,'$1s'):s;
+const H=()=>LS('vektor:ui',{}).h12?'h12':'h23';
+const BT2=`======================================================================
+       ДЕВІД ҐОҐҐІНС: НІКОЛИ НЕ СПИНЯЙСЯ (NEVER FINISHED)
+      Звільни свій розум та виграй внутрішню війну (Стислий зміст)
+======================================================================
+
+1. ГОЛОВНА ІДЕЯ КНИГИ
+----------------------------------------------------------------------
+Фінішної лінії не існує. Якщо перша книга («Нічого мене не зламає») 
+навчала вибиратися з дна та будувати фундаментальну дисципліну, то 
+«Ніколи не спиняйся» розкриває, як діяти, коли ви вже досягли успіху 
+та визнання.
+
+Комфорт і досягнутий успіх можуть зробити людину м'якою так само легко, 
+як і поразка. Справжня велич — це не разовий фініш, а постійний процес 
+самовдосконалення, який триває все життя.
+
+----------------------------------------------------------------------
+2. КЛЮЧОВІ ІНСТРУМЕНТИ ТА КОНЦЕПЦІЇ
+----------------------------------------------------------------------
+
+1. МЕНТАЛІТЕТ «НІКОЛИ НЕ ЗАВЕРШЕНО» (Never Finished Mindset)
+   • Суть: Будь-яка перемога — це лише новий стартовий майданчик.
+   • Практика: Не дозволяйте минулим здобуткам заколисувати ваші амбіції. 
+     Як тільки ви досягаєте мети, ставте нову планку, щоб не потрапити 
+     в пастку самовдоволення.
+
+2. СЕКУНДНЕ РІШЕННЯ (The One-Second Decision)
+   • Суть: У момент найгострішого болю, виснаження чи бажання все 
+     кинути, ваша доля вирішується за одну секунду.
+   • Практика: Коли мозок починає панікувати й благає зупинитися, 
+     зробіть паузу на 1 секунду. Перехопіть контроль у емоцій та 
+     прийміть свідоме рішення: «Я роблю наступний крок».
+
+3. МЕНТАЛЬНА ЛАБОРАТОРІЯ (The Mental Lab)
+   • Суть: Глибока та холодна аналітика власних помилок, слабкостей 
+     і внутрішніх травм.
+   • Практика: Розкладайте свої невдачі як науковий експеримент — без 
+     сорому та емоцій. Ставте собі запитання: «Де саме я змалодушно 
+     відступив? Які дані з цієї поразки зроблять мене сильнішим?».
+
+4. ДИСЦИПЛІНА БЕЗ АПЛОДИСМЕНТІВ (Diligence Without Applause)
+   • Суть: Справжній характер гартується тоді, коли ніхто не бачить.
+   • Практика: Працюйте над собою не заради похвали, оцінок чи лайків 
+     у соціальних мережах, а виключно через повагу до власних 
+     внутрішніх стандартів.
+
+5. ГОТОВНІСТЬ ЗНОВУ СТАТИ НОВАЧКОМ (Wreckage & Rebuilding)
+   • Суть: Здатність добровільно руйнувати свою зону комфорту.
+   • Практика: Не бійтеся виходити у нові сфери, де ви нічого не 
+     вмієте, знову відчути себе найслабшим і пройти шлях від 
+     початківця до майстра.
+
+6. ЛІДЕРСТВО ЧЕРЕЗ ВЛАСНУ СТІЙКІСТЬ (Leading by Example)
+   • Суть: Слова та теорія не надихають так, як реальні дії.
+   • Практика: Показуйте приклад власною працею, витривалістю та 
+     дисципліною. Ваші вчинки мають говорити гучніше за будь-які розмови.
+
+----------------------------------------------------------------------
+3. ОСНОВНІ ЖИТТЄВІ УРОКИ
+----------------------------------------------------------------------
+• Успіх — це пастка: Зона комфорту після перемоги затягує не менш 
+  небезпечно, ніж зневіра після поразки.
+• Орендна плата за велич сплачується щодня: Вчорашній успіх не 
+  зараховується сьогодні. Дисципліну потрібно підтверджувати щоранку.
+• Твій єдиний суперник — це ти вчорашній: Порівнюй себе лише із тим, 
+  ким ти був учора, та із тим, ким ти потенційно можеш стати.
+
+======================================================================
+               "Фінішної лінії не існує. 
+                Війну із самим собою виграють щодня!"
+======================================================================`;
+const BTE2=`======================================================================
+       DAVID GOGGINS: NEVER FINISHED
+   Free your mind and win the war within (Short summary)
+======================================================================
+
+1. THE MAIN IDEA OF THE BOOK
+----------------------------------------------------------------------
+There is no finish line. If the first book ("Can't Hurt Me") taught how
+to climb out of the pit and build fundamental discipline, "Never
+Finished" shows how to act once you have already achieved success and
+recognition.
+
+Comfort and success can make a person soft just as easily as defeat.
+True greatness is not a one-time finish but a continuous process of
+self-improvement that lasts a lifetime.
+
+----------------------------------------------------------------------
+2. KEY TOOLS AND CONCEPTS
+----------------------------------------------------------------------
+
+1. THE "NEVER FINISHED" MINDSET
+   • Essence: every victory is just a new starting platform.
+   • Practice: don't let past achievements lull your ambition. As soon
+     as you reach a goal, set a new bar so you don't fall into the trap
+     of complacency.
+
+2. THE ONE-SECOND DECISION
+   • Essence: at the moment of sharpest pain, exhaustion or the urge to
+     quit, your fate is decided in a single second.
+   • Practice: when your brain starts to panic and begs you to stop,
+     pause for 1 second. Take control back from your emotions and make
+     a conscious decision: "I'm taking the next step."
+
+3. THE MENTAL LAB
+   • Essence: deep, cold analysis of your own mistakes, weaknesses and
+     inner wounds.
+   • Practice: break your failures down like a scientific experiment -
+     without shame or emotion. Ask yourself: "Where exactly did I back
+     down? What data from this defeat will make me stronger?"
+
+4. DILIGENCE WITHOUT APPLAUSE
+   • Essence: real character is forged when no one is watching.
+   • Practice: work on yourself not for praise, grades or social media
+     likes, but solely out of respect for your own inner standards.
+
+5. WILLINGNESS TO BE A BEGINNER AGAIN (Wreckage & Rebuilding)
+   • Essence: the ability to willingly tear down your own comfort zone.
+   • Practice: don't be afraid to step into new fields where you know
+     nothing, feel like the weakest again, and walk the path from
+     beginner to master.
+
+6. LEADING BY EXAMPLE
+   • Essence: words and theory don't inspire like real actions do.
+   • Practice: set an example with your own work, endurance and
+     discipline. Your actions should speak louder than any talk.
+
+----------------------------------------------------------------------
+3. MAIN LIFE LESSONS
+----------------------------------------------------------------------
+• Success is a trap: the comfort zone after a victory pulls you in just
+  as dangerously as despair after a defeat.
+• The rent for greatness is paid daily: yesterday's success doesn't
+  count today. Discipline must be proven again every morning.
+• Your only rival is yesterday's you: compare yourself only with who
+  you were yesterday and who you could potentially become.
+
+======================================================================
+               "There is no finish line.
+                The war with yourself is won every day!"
+======================================================================`;
+const BTE=`======================================================================
+         DAVID GOGGINS: CAN'T HURT ME
+          Short summary, key concepts and tools
+======================================================================
+
+1. THE MAIN IDEA OF THE BOOK
+----------------------------------------------------------------------
+Most people use only about 40% of their potential.
+Our brain has an inner "governor" that switches on at the first signs
+of pain, fatigue or discomfort, trying to protect us.
+
+Real growth begins when you deliberately step over this barrier, leave
+your comfort zone and build an "armored mind".
+
+----------------------------------------------------------------------
+2. DAVID GOGGINS' 7 KEY TOOLS
+----------------------------------------------------------------------
+
+1. THE ACCOUNTABILITY MIRROR
+   • Essence: harsh, honest self-assessment with no sugarcoating or excuses.
+   • Practice: stick notes on your mirror with your weaknesses, fears,
+     flaws and concrete goals. Every morning look yourself in the eye and
+     demand an account of every action.
+
+2. THE 40% RULE
+   • Essence: when you feel exhausted and your mind says you can't take
+     another step, you have used only 40% of your resources.
+   • Practice: at moments of greatest fatigue, realize it is only your
+     brain's protection. Break through the barrier and do another 5–10%
+     beyond what you planned.
+
+3. THE COOKIE JAR
+   • Essence: a mental reservoir of your inner strength.
+   • Practice: write down all your past victories, hardships overcome,
+     pain and challenges you survived. In hard moments, "take a cookie"
+     from memory — remember who you are and what you have already been through.
+
+4. TAKING SOULS
+   • Essence: mental domination over hardship, rivals or pain.
+   • Practice: when circumstances, rivals or critics expect you to break,
+     work with triple force. Show them their pressure only makes you stronger.
+
+5. CALLOUSING THE MIND
+   • Essence: the mind toughens like the skin of your hands — through
+     friction and constant load.
+   • Practice: every day do something that causes discomfort or laziness
+     (morning run, cold water, hard study, cleaning). Train your mind
+     to discipline.
+
+6. THE "WHAT IF?" QUESTION
+   • Essence: a tool for overcoming the doubt of others and your own.
+   • Practice: when people or your own fear say it's impossible, ask
+     yourself: "What if I can do it?" This turns doubt into fuel.
+
+7. AFTER ACTION REPORT
+   • Essence: defeat is not the end but a source of valuable data for growth.
+   • Practice: after a failure, remove emotion and self-pity. Analyze:
+     what went wrong, how you reacted, what mistakes were made and what
+     you will do differently next time.
+
+----------------------------------------------------------------------
+3. MAIN LIFE LESSONS
+----------------------------------------------------------------------
+• Nobody is coming to save you: your past or hard childhood is not an
+  excuse for weakness, but a launch pad and fuel.
+• Motivation is nonsense, discipline is everything: motivation fades fast
+  when it gets painful or cold. Only iron discipline works.
+• Accept your "bad cards": don't compare yourself with others. Play the
+  cards you were dealt and squeeze the maximum out of them.
+• Don't stop when you're tired. Stop when the job is done.
+
+======================================================================`;
+function applyUI(){const u=LS('vektor:ui',{}),r=document.documentElement.style;
+['ac','hl','bg','sf','tx','mu','bd','ok'].forEach(k=>u[k]?r.setProperty('--'+k,u[k]):r.removeProperty('--'+k));
+if(u.at)r.setProperty('--at',u.at);else if(u.ac){const n=parseInt(u.ac.slice(1),16),l=((n>>16)*299+((n>>8&255)*587)+(n&255)*114)/1000;r.setProperty('--at',l>150?'#121a33':'#fff')}else r.removeProperty('--at');
+let c='';
+if(FF[u.bf])c+=`body,button,input,select,textarea{font-family:${FF[u.bf]}!important}`;if(FF[u.hf])c+=`h1,h2,.q,.big b,.tm,.kc,[style*="Unbounded"]{font-family:${FF[u.hf]}!important}`;
+if(u.rd!=null)c+=`button,input,select,textarea{border-radius:${+u.rd*.7}px!important}.c,.big,.q{border-radius:${+u.rd}px!important}`;
+if(u.dn!=null&&u.dn!=1)c+=`.c{padding:${[7,12,20][u.dn]}px!important;margin-bottom:${[6,10,18][u.dn]}px!important}`;
+if(u.mw)c+=`.w{max-width:${+u.mw}px!important}`;if(u.z)c+=`body{zoom:${+u.z}}`;if(u.ng)c+='body{background-image:none!important}';if(u.sh)c+='.c,.big,.q{box-shadow:0 6px 18px rgba(0,0,0,.28)}';
+if(u.nl)c+='nav button{font-size:0!important}nav button b{font-size:22px!important}';if(u.hc)c+='#dt,#ck{display:none}';
+if(u.lh)c+=`body{line-height:${+u.lh}}`;if(u.ls)c+=`body{letter-spacing:${+u.ls}em}`;if(u.fw)c+=`body{font-weight:${+u.fw}}`;
+if(u.bw!=null)c+=`.c,.big,.q,input,select,textarea,button{border-width:${+u.bw}px!important}nav button{border-width:0!important}`;
+if(u.gs)c+=`body{background-size:${+u.gs}px ${+u.gs}px!important}`;if(u.pd!=null)c+=`.w{padding:${+u.pd}px!important}`;
+if(u.cs=='o')c+='.c{background:transparent!important}';if(u.cs=='n')c+='.c{border-color:transparent!important}';
+if(u.ra)c+='*{transition:none!important;animation:none!important;scroll-behavior:auto!important}';
+if(u.ns)c+=`nav button b{font-size:${+u.ns}px!important}`;
+if(u.np=='t')c+='nav{top:0!important;bottom:auto!important;border-top:0!important;border-bottom:1px solid var(--bd);padding:calc(6px + env(safe-area-inset-top,0px)) 6px 6px!important}body{padding-top:84px!important;padding-bottom:16px!important}';
+TABS.forEach(t=>{if(u['ht_'+t[0]]&&t[0]!='set')c+=`nav button[data-v="${t[0]}"]{display:none}`});
+
+let e=document.getElementById('uis');if(!e){e=document.createElement('style');e.id='uis';document.head.appendChild(e)}e.textContent=c;document.documentElement.lang=LG;
+const nm=String(u.nm||'').trim().slice(0,30),h=document.querySelector('h1'),m=Math.ceil(nm.length/2);
+if(nm){h.innerHTML=esc(nm.slice(0,m))+'<span>'+esc(nm.slice(m))+'</span>';document.title=nm}else{h.innerHTML=LG=='en'?'Vek<span>tor</span>':'Век<span>тор</span>';document.title=LG=='en'?'Vector':'Вектор'}
+const tb=document.querySelector('header button');if(tb)tb.setAttribute('aria-label',LG=='en'?'Theme':'Тема')}
+const _vs1=V.set;V.set=()=>{const u=LS('vektor:ui',{}),cs=getComputedStyle(document.documentElement),L=lt,
+cv=k=>{let v=u[k]||cs.getPropertyValue('--'+k).trim();if(/^#[0-9a-f]{3}$/i.test(v))v='#'+[...v.slice(1)].map(x=>x+x).join('');return/^#[0-9a-f]{6}$/i.test(v)?v:'#808080'},
+col=(k,l)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><input type="color" data-ui="${k}" value="${cv(k)}"></label>`,
+sel=(k,l,o)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><select data-ui="${k}">${o.map(x=>`<option value="${x[0]}" ${(u[k]??o[0][0])==x[0]?'selected':''}>${x[1]}</option>`).join('')}</select></label>`,
+rg=(k,l,a,b,s,d)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><input type="range" data-ui="${k}" min="${a}" max="${b}" step="${s}" value="${u[k]??d}"></label>`,
+ck=(k,l)=>`<label class="r" style="margin:6px 0"><span class="g">${l}</span><input type="checkbox" data-ui="${k}" ${u[k]?'checked':''}></label>`,
+sw=['#2442d6','#8aa8ff','#e11d48','#f97316','#16a34a','#0d9488','#7c3aed','#db2777','#09090b'];
+return _vs1()+`<h2>${L('Ще кастомізація|More customization')}</h2><div class="c"><div class="mu">${L('Швидкий акцент|Quick accent')}</div><div class="r" style="margin:8px 0">${sw.map(x=>`<button data-a="uiac" data-v="${x}" aria-label="${x}" style="background:${x};width:30px;height:30px;padding:0;border-radius:50%"></button>`).join('')}</div>
+<label class="r" style="margin:6px 0"><span class="g">${L('Назва застосунку|App name')}</span><input data-ui="nm" maxlength="30" value="${esc(u.nm||'')}" style="width:160px"></label>${col('ok',L('Колір «готово»|“Done” color'))}${col('at',L('Текст на кнопках|Button text'))}</div>
+<div class="c">${sel('fw',L('Товщина тексту|Text weight'),[[400,L('Звичайна|Regular')],[500,L('Середня|Medium')],[700,L('Жирна|Bold')]])}${rg('lh',L('Міжрядковий інтервал|Line height'),1.1,2,.05,1.45)}${rg('ls',L('Міжлітерний інтервал|Letter spacing'),0,.08,.005,0)}${rg('bw',L('Товщина рамок|Border width'),0,4,1,1)}${rg('pd',L('Відступи сторінки|Page padding'),6,32,2,14)}${rg('gs',L('Розмір сітки|Grid size'),12,60,2,22)}${sel('cs',L('Стиль карток|Card style'),[['f',L('Заповнені|Filled')],['o',L('Контурні|Outlined')],['n',L('Без рамки|Borderless')]])}${ck('ra',L('Вимкнути анімації|Disable animations'))}${ck('h12',L('12-годинний годинник|12-hour clock'))}</div>
+<div class="c">${sel('np',L('Положення меню|Menu position'),[['b',L('Знизу|Bottom')],['t',L('Зверху|Top')]])}${rg('ns',L('Розмір іконок меню|Menu icon size'),16,34,1,20)}${sel('st',L('Стартова вкладка|Start tab'),TABS.map(t=>[t[0],(t[3]||t[1])+' '+t[2]]))}<div class="mu" style="margin-top:8px">${L('Сховати вкладки|Hide tabs')}</div>${TABS.filter(t=>t[0]!='set').map(t=>ck('ht_'+t[0],(t[3]||t[1])+' '+t[2])).join('')}</div>`};
+Object.assign(A,{uiac:e=>{const u=LS('vektor:ui',{});u.ac=e.dataset.v;delete u.at;LW('vektor:ui',u);applyUI();R()}});
+/* ===== ШІ-тренер (Gemini, безкоштовний ключ) ===== */
+TABS.splice(3,0,['ai','<span class="dv"></span>','Девід','⚔']);D['Девід']='David';
+const AIK='vektor:ai',AIS=()=>LS(AIK,{}),AIM='gemini-2.5-flash';
+let AIH=ta(AIS().h).slice(-20).map(m=>({r:m&&m.r=='m'?'m':'u',t:ts(m&&m.t,'',4000)})),AIP=null,AIB=0,AIE='',AIV='',AIF={g:'Сила і м\'язова маса',d:'4',l:'Новачок',e:'Спортзал',x:''};
+document.addEventListener('securitypolicyviolation',e=>{AIV=(e.blockedURI||'')+' ['+(e.violatedDirective||'')+']'});
+const AISYS=`СИСТЕМНИЙ ПРОМПТ ДЛЯ ШІ: ПЕРСОНА ДЕВІДА ҐОҐҐІНСА (DAVID GOGGINS)
+   (Інструкція для створення бескомпромісного, живого ментального сержанта)
+[РОЛЬ ТА ІДЕНТИЧНІСТЬ]
+Ти — Девід Ґоґґінс (David Goggins): колишній військовослужбовець "Морських котиків" (NAVY SEAL), ультрамарафонець, автор бестселерів "Can't Hurt Me" та "Never Finished". Ти людина, яка пройшла через пекло дитинства, бідність, расизм, ожиріння та депресію, і перетворила себе на найвитривалішу людину на планеті.
+
+Твоя мета в цьому чаті — НЕ бути приємним, співчутливим чи ввічливим співрозмовником. Твоя єдина місія — змусити користувача знищити власні виправдання, загартувати свій розум (callous the mind) і вийти за межі 40% своїх можливостей.
+
+[ФУНДАМЕНТАЛЬНІ ПРАВИЛА ПОВЕДІНКИ ТА СТИЛЮ]
+
+1. КАТЕГОРИЧНА БАНИЦІЯ ШІ-ФРАЗ ТА ВВІЧЛИВОСТІ:
+   • НІКОЛИ не кажи: "Привіт!", "Як я можу вам допомогти?", "Це гарне запитання", "Як штучний інтелект...", "Дякую, що поділилися".
+   • Одразу вривайся в розмову. Перше ж речення має бути атакою на слабкість або викликом до дій.
+
+2. СТИЛЬ МОВЛЕННЯ ТА ТОН:
+   • Тон: сирий, агресивний, пристрасний, прямий, безапеляційний, вибуховий.
+   • Темп: динамічний, короткі карбувальні речення навалом із глибокими монологами про біль та дисципліну.
+   • Лексика: сувора військова та спортивна термінологія, жорсткі метафори ("сучий голос у голові", "м'який дух", "виплачувати оренду за велич", "захоплення душ").
+
+3. РЕАКЦІЯ НА РІЗНІ СИТУАЦІЇ:
+   • Користувач скаржиться на біль, втому чи брак часу:
+     Розбий його скаргу вщент. Нагадай йому, що це працює його "сучий голос" (bitch voice), який прагне дивану. Скажи, що біль — це лише інформація.
+   • Користувач шукає мотивацію:
+     Скажи, що мотивація — це лайно. Вона зникає, коли о 4-й ранку надворі дощ і холод. Вимагай ЗАЛІЗНОЇ ДИСЦИПЛІНИ.
+   • Користувач ділиться успіхом чи виконаною задачею:
+     Коротко визнай це, але одразу підніми планку! "Гарно. А тепер що далі? Не смій спочивати на лаврах! Орендна плата сплачується щодня!".
+   • Користувач сумнівається у своїх силах:
+     Увімкни концепцію "Що, якщо?" (What If?). Примусь його уявити, як він переступає через страх і змушує всіх скептиків закрити роти.
+
+[КЛЮЧОВИЙ СЛОВНИК ТА ФІРМОВІ ФРАЗИ]
+
+Використовуй ці фрази та поняття регулярно під час діалогу:
+
+• "Stay Hard!" (Залишайся міцним!)
+• "Who's gonna carry the boats and the logs?!" (Хто тягтиме човни та колоди?!)
+• "Don't stop when you're tired, stop when you're done!" (Не зупиняйся, коли втомився. Зупиняйся, коли справу зроблено!)
+• "Taking souls!" (Захоплення душ — перевершення очікувань ворогів та ворожих обставин!)
+• "The Accountability Mirror" (Дзеркало відповідальності — жорстока чесність із самим собою.)
+• "The Cookie Jar" (Банка з печивом — список твоїх минулих перемог над болем.)
+• "The 40% Rule" (Правило 40% — коли здається, що все, ти використав лише 40% ресурсу.)
+• "Pay the rent every single day!" (Плати оренду за свій потенціал щодня!)
+• "Callous your mind!" (Загартовуй свій розум через дискомфорт!)
+• "There is no finish line!" (Фінішної лінії не існує!)
+
+[СЦЕНАРІЙ ТА ПРИКЛАДИ ВІДПОВІДЕЙ]
+
+Приклад 1:
+Користувач: "Девід, я так втомився сьогодні після роботи, що немає сил йти на тренування..."
+Твій відгук:
+"Ти щойно процитував свій слабкий, соплявий внутрішній голос! 'Я втомився, я працював...' Думаєш, комусь не байдуже, що ти робив на своїй роботі?! Твій мозок прямо зараз намагається захистити тебе і вмикає запобіжник на 40%! Він хоче, щоб ти сів на диван, увімкнув телевізор і перетворився на м'яку ганчірку! 
+Підведи свою дупу прямо зараз, підійди до дзеркала і подивися собі в очі. Ти хочеш залишитися середньостатистичним невдахою чи хочеш побудувати броньований розум? Взувай кросівки і йди бігти! Мене не хвилює, чи це 1 км, чи 10 км. Вийди в цей дискомфорт! WHO'S GONNA CARRY THE BOATS?! STAY HARD!"
+
+Приклад 2:
+Користувач: "Я пробіг свій перший півмарафон! Я зробив це!"
+Твій відгук:
+"Чудово! Ти зробив крок із дивана. Ти дістав одне 'печиво' із банки. А тепер послухай мене уважно: НЕ СМІЙ СПОЧИВАТИ НА ЛАВРАХ! Найнебезпечніше місце на землі — це зона комфорту після першої перемоги. Вона заколисує тебе. Ти платив оренду вчора, але що ти зробиш СЬОГОДНІ? Яка твоя наступна мета? Який твій наступний виклик? Не зупиняйся. Фінішної лінії не існує!"
+
+[ГОЛОВНИЙ НАКАЗ ДЛЯ ШІ]
+Завжди змушуй користувача діяти ПРЯМО ЗАРАЗ. Закінчуй відповіді конкретним наказом, питанням-викликом або гаслом "STAY HARD!".
+
+[ТЕХНІЧНІ ПРАВИЛА ЗАСТОСУНКУ]
+ЗАЛІЗНЕ ПРАВИЛО БЕЗПЕКИ: дискомфорт, втома, нудота від зусилля — це одне, а гострий біль, травма, запаморочення, біль у грудях, оніміння — інше. На них не тисни: скажи припинити вправу і піти до лікаря (тільки справжні симптоми, не лінь). Не давай медичних діагнозів, екстремальних дієт і не радь голодування чи зневоднення.
+Відповідай мовою користувача (за замовчуванням українською). Відповіді короткі: до 150 слів, якщо не просять більше.`;
+const AIPR=`
+ЗАРАЗ ТВОЄ ЗАВДАННЯ — РОЗРОБИТИ ПРОГРАМУ ТРЕНУВАНЬ НА ТИЖДЕНЬ. Поверни ТІЛЬКИ валідний JSON без markdown і без пояснень поза JSON такої форми:
+{"title":"коротка назва програми","note":"2-4 речення у стилі Ґоґґінса: наказ і настанова щодо прогресії та відпочинку","days":[{"day":0,"name":"назва дня","exercises":["Присідання 4×8","Жим лежачи 4×8"]}]}
+Правила: day — індекс дня тижня (0=Пн,1=Вт,2=Ср,3=Чт,4=Пт,5=Сб,6=Нд). Включай рівно стільки тренувальних днів, скільки просить користувач, і розподіли їх так, щоб між важкими днями на ті самі м'язи був відпочинок. Кожен рядок exercises — одна вправа з підходами×повторами або часом (формат «Назва 4×8» або «Планка 3×45с»). 4–8 вправ на день, реалістично для рівня й обладнання користувача, з розминкою на початку першого рядка кожного дня не потрібно. Врахуй обмеження/травми користувача й обери безпечні альтернативи. Назви вправ і дня — мовою користувача.`;
+const aictx=()=>{const w=DAYS.map((d,i)=>{const x=S.split[i];return d+': '+x.n+(x.ex.length?' — '+x.ex.map(e=>{const l=e.log,b=l.reduce((a,y)=>(!a||y.w>a.w||(y.w==a.w&&y.r>a.r))?y:a,null);return e.n+(b?' (рекорд '+b.w+' кг × '+b.r+')':'')}).join('; '):'')}).join('\n'),pr=S.pull.map(x=>x.v);return'\n\nДАНІ КОРИСТУВАЧА З ЗАСТОСУНКУ (використовуй їх, коли доречно):\nПоточний тижневий план:\n'+w+'\nРекорд підтягувань: '+(pr.length?Math.max(...pr):'немає даних')};
+async function gcall(contents,system,json){const u=AIS();if(!u.k)throw new Error('Спершу додай ключ');
+AIV='';let r;try{r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+AIM+':generateContent',{method:'POST',referrerPolicy:'no-referrer',headers:{'Content-Type':'application/json','x-goog-api-key':u.k},body:JSON.stringify({systemInstruction:{parts:[{text:system}]},contents,generationConfig:json?{responseMimeType:'application/json'}:{}})})}catch(e){await new Promise(z=>setTimeout(z,50));throw new Error(AIV?'Запит заблокований політикою безпеки сторінки: '+AIV+'. Перевір, що в index.html у CSP є https://generativelanguage.googleapis.com у connect-src, і що хостинг не додає власний CSP-заголовок.':navigator.onLine===false?'Немає інтернету.':'Не вдалося зʼєднатися з Google. Найчастіші причини: застарілий sw.js перехоплює запит (заміни sw.js на новий і онови сторінку), блокувальник реклами/VPN або мережа блокує generativelanguage.googleapis.com.')}
+const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error((j.error&&j.error.message)||('Помилка '+r.status));
+const t=ta((ob(ta(j.candidates)[0]).content||{}).parts).map(p=>ts(p&&p.text,'',20000)).join('');if(!t)throw new Error('Порожня відповідь (можливо, спрацював фільтр)');return t}
+function aiParse(t){let o;try{o=ob(JSON.parse(t.trim().replace(/^```(?:json)?\s*|\s*```$/g,'')))}catch(e){throw new Error('ШІ повернув не JSON — спробуй ще раз')}
+const days=Array(7).fill(null);ta(o.days).slice(0,7).forEach(d=>{d=ob(d);const i=Number(d.day);if(!Number.isInteger(i)||i<0||i>6||days[i])return;const e=ta(d.exercises).map(x=>ts(x,'',100).trim()).filter(Boolean).slice(0,10);if(e.length)days[i]={n:ts(d.name,'День',60),ex:e}});
+if(!days.some(Boolean))throw new Error('ШІ склав порожню програму — спробуй ще раз');return{t:ts(o.title,'Програма',80),note:ts(o.note,'',600),days}}
+const aichat=()=>AIH.length?AIH.map(m=>`<div style="margin:8px 0;display:flex;justify-content:${m.r=='u'?'flex-end':'flex-start'}"><div style="max-width:88%;padding:8px 12px;border-radius:12px;white-space:pre-wrap;word-break:break-word;${m.r=='u'?'background:var(--ac);color:var(--at)':'background:var(--sf);border:1px solid var(--bd)'}">${esc(m.t)}</div></div>`).join(''):'<div class="mu">Напиши, що тебе зупиняє. Без виправдань.</div>';
+const aiop=(v,l,c)=>`<option ${c==v?'selected':''}>${esc(v)}</option>`;
+V.ai=()=>{const u=AIS(),pv=AIP;
+if(!u.k)return`<div class="c"><b><span class="dv"></span> Девід (Gemini)</b><div class="mu" style="margin:6px 0">Безкоштовний ключ: створи його в Google AI Studio (aistudio.google.com/apikey), без банківської картки. Ключ зберігається лише на цьому пристрої й надсилається тільки в Google.</div><input id="aik" type="password" autocomplete="off" placeholder="Ключ Gemini API" style="width:100%"><button class="p" data-a="aisave" style="margin-top:8px;width:100%">Зберегти ключ</button><div class="mu" style="margin-top:6px">Увага: у безкоштовному тарифі Google може використовувати запити для покращення своїх продуктів. Не пиши в чат нічого чутливого.</div></div>`;
+return`<div class="c"><div class="r"><b class="g"><span class="dv"></span> Девід</b><button data-a="aikey" aria-label="Змінити ключ">🔑</button></div>
+<label class="r" style="margin:6px 0"><span class="g">Мета</span><select id="aig">${['Сила і м\'язова маса','Схуднення і витривалість','Калістеніка і скіли','Загальна фізична підготовка'].map(o=>aiop(o,0,AIF.g)).join('')}</select></label>
+<label class="r" style="margin:6px 0"><span class="g">Днів на тиждень</span><select id="aid">${[2,3,4,5,6].map(o=>aiop(String(o),0,AIF.d)).join('')}</select></label>
+<label class="r" style="margin:6px 0"><span class="g">Рівень</span><select id="ail">${['Новачок','Середній','Просунутий'].map(o=>aiop(o,0,AIF.l)).join('')}</select></label>
+<label class="r" style="margin:6px 0"><span class="g">Де тренуєшся</span><select id="aie">${['Спортзал','Турнік і брусья (вулиця)','Вдома без обладнання','Вдома з гантелями'].map(o=>aiop(o,0,AIF.e)).join('')}</select></label>
+<input id="aix" maxlength="200" value="${esc(AIF.x)}" placeholder="Травми / обмеження (необов'язково)" style="width:100%;margin:6px 0">
+<button class="p" data-a="aiprog" style="width:100%" ${AIB?'disabled':''}>${AIB=='p'?'⏳ Складаю…':'Скласти програму'}</button>
+${AIE?`<div class="mu" style="margin-top:8px;color:#e11d48">${esc(AIE)}</div>`:''}</div>
+${pv?`<div class="c"><b>${esc(pv.t)}</b><div style="margin:6px 0;white-space:pre-wrap">${esc(pv.note)}</div><div style="font-size:14px">${pv.days.map((d,i)=>d?`<div style="padding:4px 0"><b>${DAYS[i]} · ${esc(d.n)}</b><div class="mu">${d.ex.map(esc).join(' · ')}</div></div>`:'').join('')}</div><button class="p" data-a="aiapply" style="margin-top:8px;width:100%">Застосувати до тижня</button><div class="mu" style="margin-top:6px">Замінить вправи у вкладці «Тренування». Записи підходів збережуться для вправ із тією самою назвою.</div></div>`:''}
+<h2>Чат із тренером</h2><div class="c"><div id="aichat" style="max-height:48vh;overflow:auto">${aichat()}</div><div class="r" style="margin-top:8px"><textarea id="aim" rows="2" class="g" placeholder="Що тебе зупиняє?" maxlength="1500"></textarea><button class="p" data-a="aisend" ${AIB?'disabled':''}>▶</button></div>${AIH.length?'<button data-a="aiclear" style="margin-top:8px">Очистити чат</button>':''}</div>`};
+Object.assign(A,{
+aisave:()=>{const k=g('aik').trim();if(k.length<20)return toast('Схоже, це не ключ');const u=AIS();u.k=k;LW(AIK,u);AIE='';R();toast('Ключ збережено')},
+aikey:()=>{if(!confirm('Видалити збережений ключ із цього пристрою?'))return;const u=AIS();delete u.k;LW(AIK,u);R()},
+aiclear:()=>{AIH=[];const u=AIS();delete u.h;LW(AIK,u);R()},
+aiprog:async()=>{if(AIB)return;AIB='p';AIE='';R();
+const p=`Склади програму. Мета: ${AIF.g}. Тренувальних днів на тиждень: ${AIF.d}. Рівень: ${AIF.l}. Обладнання: ${AIF.e}. Обмеження/травми: ${AIF.x||'немає'}.`;
+try{AIP=aiParse(await gcall([{role:'user',parts:[{text:p}]}],AISYS+AIPR+aictx(),1))}catch(e){AIE=String(e.message||e).slice(0,300)}
+AIB=0;if(tab=='ai')R()},
+aiapply:()=>{if(!AIP||!confirm('Замінити вправи на всьому тижні?'))return;const old={};S.split.forEach(d=>d.ex.forEach(e=>{old[e.n.toLowerCase()]=e.log}));
+AIP.days.forEach((d,i)=>{S.split[i]=d?{n:d.n,ex:d.ex.map(n=>({n,log:old[n.toLowerCase()]||[]}))}:{n:lt('Відпочинок|Rest'),ex:[]}});
+save();AIP=null;tab='gym';R();toast('Програму застосовано. Stay Hard!')},
+aisend:async()=>{if(AIB)return;const el=$('#aim'),t=el?el.value.trim().slice(0,1500):'';if(!t)return;AIB='c';AIE='';AIH.push({r:'u',t});
+const c=$('#aichat');if(c){c.innerHTML=aichat()+'<div class="mu">⏳…</div>';c.scrollTop=c.scrollHeight}el.value='';
+try{const a=await gcall(AIH.slice(-12).map(m=>({role:m.r=='u'?'user':'model',parts:[{text:m.t}]})),AISYS+aictx());AIH.push({r:'m',t:a.slice(0,4000)})}catch(e){AIH.pop();AIE=String(e.message||e).slice(0,300);if(el)el.value=t}
+AIH=AIH.slice(-20);const u=AIS();u.h=AIH;LW(AIK,u);AIB=0;if(tab=='ai'){const v=$('#aim')?$('#aim').value:'';R();const m=$('#aim');if(m)m.value=v;const c2=$('#aichat');if(c2)c2.scrollTop=c2.scrollHeight}}});
+document.addEventListener('change',e=>{const t=e.target,k={aig:'g',aid:'d',ail:'l',aie:'e'}[t.id];if(k)AIF[k]=t.value});
+document.addEventListener('input',e=>{if(e.target.id=='aix')AIF.x=e.target.value.slice(0,200)});
+document.addEventListener('keydown',e=>{if(e.target.id=='aim'&&e.key=='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();A.aisend()}});
+applyUI();{const t0=LS('vektor:ui',{}).st;if(t0&&V[t0])tab=t0}
+R();kclock();setInterval(kclock,1000);wxLoad();setInterval(wxLoad,6e5);
+</script></body></html>
