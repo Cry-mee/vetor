@@ -128,17 +128,17 @@ const nd=p=>{const a=p.split('.').map(Number);let n=S.proj[a[0]];for(let i=1;i<a
 const par=p=>{const a=p.split('.');return a.length>1?nd(a.slice(0,-1).join('.')).kids:S.proj};
 const cn=n=>n.kids.length?n.kids.reduce((a,c)=>{const x=cn(c);return[a[0]+x[0],a[1]+x[1]]},[0,0]):[n.d?1:0,1];
 const dl=s=>{if(!s)return'';const n=new Date(),d=new Date(s),b=new Date(n.getFullYear(),n.getMonth(),n.getDate()),x=new Date(n.getFullYear(),d.getMonth(),d.getDate());if(x<b)x.setFullYear(x.getFullYear()+1);return Math.round((x-b)/864e5)};
-
+ 
 /* Алгоритм: ставимо найважчі задачі в години, де рівень енергії відповідає ресурсу; потім компроміс */
 function route(){const E=S.en,pl=[],un=[];let s=S.start.split(':').map(Number);s=Math.ceil((s[0]*60+s[1])/15)*15;
 const lv=(t,m)=>{const a=[];for(let x=t;x<t+m;x+=15)a.push(E[Math.floor(x/60)%24]);return a};
 const ok=(k,t,p)=>{const a=lv(t,k.m);if(k.e==1)return p==0?a.every(v=>v==1):p==1?a.every(v=>v>0&&v<3):a.every(v=>v>0);return p==0?a.every(v=>v>=k.e):p==1?a.every(v=>v>0&&v>=k.e-1):a.every(v=>v>0)};
 S.tasks.filter(k=>!k.done).sort((a,b)=>b.e-a.e||b.p-a.p).forEach(k=>{for(let p=0;p<3;p++)for(let t=s;t+k.m<=1380;t+=15){if(pl.some(b=>t<b.t+b.k.m+5&&t+k.m+5>b.t))continue;if(ok(k,t,p)){pl.push({t,k,p});return}}un.push(k)});
 return{pl:pl.sort((a,b)=>a.t-b.t),un}}
-
+ 
 const strip=()=>`<div class="en">${S.en.slice(6).map((l,i)=>`<button data-a="eh" data-h="${i+6}" aria-label="${i+6}:00, ${lvN[l]}" style="height:${12+l*17}px;opacity:${[.15,.4,.7,1][l]}"></button>`).join('')}</div><div class="hr">${S.en.slice(6).map((l,i)=>`<span>${(i+6)%3==0?i+6:''}</span>`).join('')}</div>`;
 const tc=(k,i,tm,x)=>`<div class="row"><div class="tm">${tm}<small>${k.m} хв</small></div><div class="c ${k.done?'dn':''}"><div class="r"><button class="ck" data-a="tg" data-i="${i}" aria-label="Готово">${k.done?'✓':''}</button><div class="g tt">${TY[k.ty]} ${esc(k.t)}</div><button data-a="del" data-i="${i}" aria-label="Видалити">×</button></div><div class="r" style="margin:6px 0 0 36px">${x||''}</div><div class="sub">${k.subs.map((s,j)=>`<label><input type="checkbox" data-a="st" data-i="${i}" data-j="${j}" ${s.d?'checked':''}>${esc(s.t)}</label>`).join('')}<div class="r"><input class="g" id="si${i}" placeholder="+ підзавдання"><button data-a="sub" data-i="${i}">Додати</button></div></div></div></div>`;
-
+ 
 V.plan=function(){const{pl,un}=route();let o='',pe=null,n=0,tot=0,dm=0;S.tasks.forEach(k=>{tot+=k.m;if(k.done)dm+=k.m});
 pl.forEach(({t,k,p})=>{if(pe!==null&&t-pe>=15)o+=`<div class="row brk"><div class="tm" style="background:var(--bd);color:var(--mu)">${f(pe+5)}<small>${t-pe-5} хв</small></div><div class="c"><div class="mu">${lvN[S.en[Math.floor(pe/60)%24]]}: час для фонового навчання</div>${mini(n++)}</div></div>`;
 o+=tc(k,S.tasks.indexOf(k),f(t),`<span class="chip">${lvN[S.en[Math.floor(t/60)%24]]}</span><span class="chip">ресурс ${'●'.repeat(k.e)}</span>${p?'<span class="chip">⚠ компроміс по енергії</span>':''}`);pe=t+k.m});
@@ -150,12 +150,12 @@ return`<div class="c" style="background:var(--hl);color:#121a33;border:0">${esc(
 <div class="tl">${o||'<div class="mu">Активних завдань нема — додай нове або візьми пункт із проєкту.</div>'}</div>
 ${un.length?`<div class="c mu">Не влізло до 23:00: ${un.map(k=>esc(k.t)).join(', ')}. Скороти завдання або зсунь старт.</div>`:''}
 ${dn.length?`<h2>Готово</h2><div class="tl">${dn.map(([k,i])=>tc(k,i,'✓','')).join('')}</div>`:''}`};
-
+ 
 V.proj=function(){return`<div class="c"><div class="r"><input class="g" id="pn" placeholder="Нова мета або проєкт"><button class="p" data-a="pnew">Створити</button></div><div class="r" style="margin-top:8px"><input class="g" id="pin" placeholder="Текст підпункту"></div><div class="mu" style="margin-top:4px">Введи текст і торкнись «+» біля пункту, куди його вкласти. «→» переносить пункт у маршрут дня.</div></div>`+S.proj.map((n,i)=>{const c=cn(n);return`<div class="c"><div class="bar" style="margin-bottom:6px"><i style="width:${c[0]/c[1]*100}%"></i></div>${tree(n,''+i)}</div>`}).join('')};
 const tree=(n,p)=>{const c=cn(n),lf=!n.kids.length;return`<div class="nd"><div class="r">${lf?`<input type="checkbox" data-a="pt" data-p="${p}" ${n.d?'checked':''} aria-label="Готово">`:''}<span class="g ${lf&&n.d?'fin':''}">${lf?`<span class="tx">${esc(n.t)}</span>`:`<b>${esc(n.t)}</b> <span class="cnt">${c[0]}/${c[1]}</span>`}</span>${lf?`<button data-a="pp" data-p="${p}" aria-label="У маршрут">→</button>`:''}<button data-a="pa" data-p="${p}" aria-label="Додати підпункт">+</button><button data-a="pd" data-p="${p}" aria-label="Видалити">×</button></div>${n.kids.map((k,i)=>tree(k,p+'.'+i)).join('')}</div>`};
-
+ 
 V.ppl=function(){return`<h2 style="margin-top:0">Соціальний інкубатор</h2><div class="c"><div class="r"><input class="g" id="pnm" placeholder="Людина (напр. мама)"><input type="date" id="pdt" aria-label="Дата події"><button class="p" data-a="ap">Додати</button></div></div>`+(S.ppl.map((x,i)=>{const d=dl(x.dt);return`<div class="c"><div class="r"><b class="g">${esc(x.n)}</b>${d!==''?`<span class="chip">подія через ${d} дн.</span>`:''}<button data-a="dp" data-i="${i}" aria-label="Видалити">×</button></div>${x.ideas.map((s,j)=>`<div class="nd"><div class="r"><input type="checkbox" data-a="ti" data-i="${i}" data-j="${j}" ${s.d?'checked':''}><span class="g ${s.d?'fin':''}"><span class="tx">${esc(s.t)}</span></span><button data-a="di" data-i="${i}" data-j="${j}">×</button></div></div>`).join('')}<div class="r" style="margin-top:8px"><input class="g" id="ii${i}" placeholder="Ідея: дизайн, подарунок, сюрприз"><button data-a="ai" data-i="${i}">+</button></div></div>`}).join('')||'<p class="mu">Додай людину й ідеї для неї: дизайни, подарунки, сюрпризи. Дата події покаже, скільки лишилось днів.</p>')+V.mot()};
-
+ 
 Object.assign(A,{
 eh:e=>{const h=+e.dataset.h;S.en[h]=(S.en[h]+1)%4;save();R()},
 pn:e=>{S.en=EN[e.dataset.n].split('').map(Number);save();R()},
@@ -171,7 +171,7 @@ di:e=>{S.ppl[e.dataset.i].ideas.splice(e.dataset.j,1);save();R()},
 ti:e=>{const s=S.ppl[e.dataset.i].ideas[e.dataset.j];s.d=s.d?0:1;save()}});
 document.addEventListener('change',e=>{const t=e.target,a=t.dataset.a;if(a=='pt'||a=='ti'){A[a](t);R()}});
 save();
-
+ 
 /* ===== Картки з власними категоріями, імпорт, правки спліту ===== */
 S.cu=S.cu||[];S.cat=S.cat||'';
 CARDS.push(['syllabus','Університет','навчальна програма','Check the syllabus before the lecture.'],['deadline','Університет','крайній термін','The deadline is on Friday.'],['assignment','Університет','завдання, робота','I finished the assignment early.'],['to cram','Університет','зубрити','He crammed all night for the exam.'],['reps','Спорт','повторення','Do eight reps per set.'],['to spot someone','Спорт','страхувати','Can you spot me on the bench?'],['plateau','Спорт','застій у прогресі','I hit a plateau in pull-ups.'],['grip','Спорт','хват','A wider grip is harder.'],['to bulk up','Спорт','набирати масу','He wants to bulk up this winter.'],['firmware','Технології','прошивка','Update the drone firmware.'],['to calibrate','Технології','калібрувати','Calibrate the compass first.'],['payload','Технології','корисне навантаження','The drone has a 200 g payload.'],['to troubleshoot','Технології','усувати несправності','Let\'s troubleshoot the issue.'],['latency','Технології','затримка','High latency ruins the flight.']);
@@ -195,7 +195,7 @@ dset:e=>{S.split[wd].ex[e.dataset.i].log.splice(e.dataset.j,1);save();R()}});
 document.addEventListener('change',e=>{if(e.target.id=='dn'){S.split[wd].n=e.target.value.trim()||S.split[wd].n;save()}});
 document.addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='nx')A.addex()});
 save();
-
+ 
 /* ===== Навички: повністю редаговані рівні, одиниці, записи ===== */
 S.skills=S.skills||[{n:'Стійка на руках',u:'с',i:S.stage||0,st:STG.slice(),log:(S.hold||[]).slice()}];
 const SE={};
@@ -216,7 +216,7 @@ sdk:e=>{S.skills.splice(e.dataset.k,1);Object.keys(SE).forEach(x=>delete SE[x]);
 sknew:()=>{const n=g('skn').trim();if(n){S.skills.push({n,u:'с',i:0,st:[],log:[]});SE[S.skills.length-1]=1;save();R()}}});
 document.addEventListener('change',e=>{const t=e.target,f=t.dataset.f;if(!f)return;const k=S.skills[t.dataset.k];if(f=='sn')k.n=t.value.trim()||k.n;if(f=='su')k.u=t.value.trim()||'с';if(f=='ss')k.st[t.dataset.j]=t.value.trim()||k.st[t.dataset.j];save()});
 save();
-
+ 
 /* ===== Час Києва та погода (Open-Meteo) ===== */
 const TZ=(()=>{try{new Intl.DateTimeFormat('uk',{timeZone:'Europe/Kyiv'});return'Europe/Kyiv'}catch(e){return'Europe/Kiev'}})();
 const kclock=()=>{const e=$('#ck');if(e)e.textContent=city()[0]+' · '+new Date().toLocaleTimeString('uk-UA',{timeZone:TZ,hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'})};
@@ -243,6 +243,7 @@ V.set=function(){return`<h2 style="margin-top:0">Погода</h2><div class="c"
 A.reset=()=>{if(!confirm('Видалити всі дані застосунку на цьому пристрої?'))return;try{localStorage.removeItem(K)}catch(e){}location.reload()};
 document.addEventListener('change',e=>{if(e.target.id!='cty')return;const c=CITIES.find(x=>x[0]==e.target.value);if(c){S.city=c[0];W=null;S.wx=null;save();kclock();toast('Місто: '+c[0]);wxLoad()}});
 try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{})}catch(e){}
-
+ 
 R();kclock();setInterval(kclock,1000);wxLoad();setInterval(wxLoad,6e5);
 </script></body></html>
+ 
